@@ -11,7 +11,7 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 
 #### Updates
 
-* Sep. 2018: *"Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
+* Sep. 2018: C. Talegaonkar and A. Rajwade* "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
 * Jul. 2018: Successfully completed an Internship at NVidia, Bangalore
 
 <!-- * Jul. 2018: new [preprint](https://arxiv.org/abs/1807.06234) on hierarchical multitask learning
