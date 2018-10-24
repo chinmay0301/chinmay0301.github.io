@@ -3,7 +3,7 @@ layout: page
 title: Research
 permalink: /research/
 ---
-My interests include Natural Language Processing, Speech Recognition and Computer Graphics.
+My interests include Image processing (in particular compressed sensing and sparse regressions), Re-inforcement learning, Machine Learning and optimization. Along with image processing, I am also interested in CUDA Programming and optimization.
 
 #### **Papers**
 
