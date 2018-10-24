@@ -26,7 +26,12 @@ My interests include Natural Language Processing, Speech Recognition and Compute
 
 * [Astronomy NIUS]() -
 
-* [Diversity Sampling in Machine Learning](http://github.com/martiansideofthemoon/diversity-sampling) - An implementation of [Diverse Beam Search for Neural Networks](https://arxiv.org/abs/1610.02424) in Language Modelling. Also contains the original (slightly modified code) for the interactive segmentation experiments in [Diverse M-Best Solutions in MRFs](http://ttic.uchicago.edu/~gregory/papers/MBestModes.pdf).
+* [Stochastic Modelling using server caches] ()
+
+* [Parallelizing Monte Carlo Simulations] ()
+
+
+[Diversity Sampling in Machine Learning](http://github.com/martiansideofthemoon/diversity-sampling) - An implementation of [Diverse Beam Search for Neural Networks](https://arxiv.org/abs/1610.02424) in Language Modelling. Also contains the original (slightly modified code) for the interactive segmentation experiments in [Diverse M-Best Solutions in MRFs](http://ttic.uchicago.edu/~gregory/papers/MBestModes.pdf).
 
 * [Macro Actions in Reinforcement Learning]((https://github.com/martiansideofthemoon/macro-action-rl)) - A suite of five algorithms (including ideas from "[Learning to Repeat: Fine Grained Action Repetition for Deep Reinforcement Learning](https://arxiv.org/abs/1702.06054)") encouraging agents to repeat actions.
 
