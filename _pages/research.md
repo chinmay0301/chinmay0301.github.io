@@ -13,7 +13,7 @@ My interests include Natural Language Processing, Speech Recognition and Compute
 
 #### **Bachelor's Thesis**
 
-* Phase Retrieval for Clipped and Poisson Corrupted measurements
+* Phase Retrieval for Clipped and Poisson Corrupted measurements  
 *(under guidance of [Prof. Ajit Rajwade](https://www.cse.iitb.ac.in/~ajitvr/))*  
 **IIT Bombay** *(Aug. 2018-Ongoing)*  
 
