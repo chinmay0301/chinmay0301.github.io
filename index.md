@@ -11,8 +11,8 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 
 #### Updates
 
-* Sep. 2018: Chinmay Talegaonkar and Ajit Rajwade, "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning", 	GlobalSIP 2018 (oral presentation)
-* Jul. 2018: Successfully completed an Internship at NVidia and recieved a **Pre-Placement Offer**
+* Sep. 2018: *"Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
+* Jul. 2018: Successfully completed an Internship at NVidia, Bangalore
 
 <!-- * Jul. 2018: new [preprint](https://arxiv.org/abs/1807.06234) on hierarchical multitask learning
 * Jun. 2018: new blogs on [grad resources]({% post_url 2018-05-30-grad-resources %}), [IIT Bombay CS opportunities]({% post_url 2018-06-05-cs-opportunities %}) and [crowdsourcing]({% post_url 2018-06-02-crowd-sourcing %})
