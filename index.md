@@ -3,9 +3,9 @@ layout: page
 ---
 {% include JB/setup %}
 
-My name is Kalpesh Krishna, and I am a first year PhD in Computer Science at [UMass Amherst](http://cs.umass.edu/). I recently graduated from the Electrical Engineering department at [IIT Bombay](http://iitb.ac.in).
+My name is Chinmay Talegaonkar, and I am a final year undergraudate in Electrical Engineering at [IIT Bombay](https://www.ee.iitb.ac.in/web). 
 
-I maintain a list of my publications and research implementations under the [Research]({{ site.url }}/research) tab. To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv).
+I maintain a list of my publications and research projects implementations under the [Research]({{ site.url }}/research) tab. To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv).
 
 I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
 
