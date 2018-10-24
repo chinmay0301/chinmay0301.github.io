@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-My name is Kalpesh Krishna, and I am a first year PhD student at [University of Massachusetts Amherst](http://cs.umass.edu/) in the College for Information and Computer Science. I am working with [Prof. Mohit Iyyer](https://people.cs.umass.edu/~miyyer/) on question generation. I am interested in Natural Language Processing, Speech Recognition and Computer Graphics.
+I am Chinmay Talegaonkar, a final year undegraduate student of the Dept. of Electrical Engineering at IIT Bombay. My Research interests revolve around Image processing (in particular compressed sensing and related fields, Re-inforcement learning and optimization. Along with image processing, I am also interested in CUDA Programming and optimization. In a nutshell, anything that involves linear algebra, probabilistic modelling and has a practical application gets me going!
 
-I recently graduated with a Bachelors in Electrical Engineering at [IIT Bombay](http://iitb.ac.in). I was a part of the [CSALT](https://www.cse.iitb.ac.in/~pjyothi/csalt/) group and was advised by [Prof. Preethi Jyothi](https://www.cse.iitb.ac.in/~pjyothi/).
+My Bachelor's thesis is supervised by [Prof. Ajit Rajwade](https://www.cse.iitb.ac.in/~ajitvr/). We are working on Phase Retrieval methods for Poisson corrupted saturated fourier measurements.
+In the summer break of 2017, I worked with [Prof. Dirk Kroese](https://people.smp.uq.edu.au/DirkKroese/) on parallelizing Monte Carlo simulations using CUDA followed by an internship at NVidia this summer, where I worked on optimizing [Capsule Networks](https://arxiv.org/pdf/1710.09829.pdf) and DBscan (a clustering algorithm).
 
-In Summer 2017, I worked on end-to-end speech recognition at [TTIC](http://ttic.edu/), a computer science research institute at [The University of Chicago](https://www.uchicago.edu/) campus, where I was lucky to have the joint advice of professors [Karen Livescu](http://ttic.uchicago.edu/~klivescu), [Liang Lu](http://ttic.uchicago.edu/~llu/) and [Kevin Gimpel](http://ttic.uchicago.edu/~kgimpel/). In Summer 2016, I contributed to [Mozilla](https://en.wikipedia.org/wiki/Mozilla)'s Automation Team via [Google Summer of Code](https://summerofcode.withgoogle.com/) and [Quarter of Contribution](https://wiki.mozilla.org/Auto-tools/New_Contributor/Quarter_of_Contribution).
 
-I used to lead a club at IIT Bombay, namely [The Web and Coding Club](https://www.facebook.com/wncc.iitb/), where we help people get started with code. In my free time I contribute to [StackOverflow](http://stackoverflow.com/users/5080995/martianwars) and to our club's [wiki](http://wncc-iitb.org/wiki), a beginner's programming guide. I love cycling, and I have a cool little [collection]({{ site.url }}/assets/rubik.jpg) of Rubiks puzzles! Unfortunately, I'm not so good at solving them!
+I enjoy astrophysics and was involved extensively in the International Astronomy Olympiad Program as a participant while in high school and also as a academic committee member in 2016-17. I was a part of the Astronomy Club of IIT Bombay, and also a member of the editorial board [Insight](https://www.inisghtiitb.org). Currently I am one of the event managers of the [Inter IIT](http://inter-iit.tech/) being hosted at IIT Bombay this year in December. I enjoy writing poetry and a bit of stand-up comedy, scenic photography, playing guitar and travelling in my leisure time. 
 
-Some people on the internet (especially on Mozilla's IRC) know me as *martianwars*.
+

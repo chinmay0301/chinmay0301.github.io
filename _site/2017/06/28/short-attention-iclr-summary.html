@@ -11,8 +11,8 @@
   <meta name="description" content="Through this blogpost I attempt to summarise the key ideas highlighted in an ICLR-2017 accepted paper, Frustratingly Short Attention Spans in Neural Language...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/2017/06/28/short-attention-iclr-summary.html">
-  <link rel="alternate" type="application/rss+xml" title="Chinmay Talegaonkar" href="http://localhost:4000/feed.xml">
+  <link rel="canonical" href="http://chinmay0301.github.io/2017/06/28/short-attention-iclr-summary.html">
+  <link rel="alternate" type="application/rss+xml" title="Chinmay Talegaonkar" href="http://chinmay0301.github.io/feed.xml">
 </head>
 
     
@@ -45,13 +45,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Through this blogpost I attempt to summarise the key ideas highlighted in an ICLR-2017 accepted paper, Frustratingly Short Attention Spans in Neural Language Modelling, (read it here), by Daniluk et al, of the University College London. You can read the official ICLR reviews on OpenReview." />
 <meta property="og:description" content="Through this blogpost I attempt to summarise the key ideas highlighted in an ICLR-2017 accepted paper, Frustratingly Short Attention Spans in Neural Language Modelling, (read it here), by Daniluk et al, of the University College London. You can read the official ICLR reviews on OpenReview." />
-<link rel="canonical" href="http://localhost:4000/2017/06/28/short-attention-iclr-summary.html" />
-<meta property="og:url" content="http://localhost:4000/2017/06/28/short-attention-iclr-summary.html" />
+<link rel="canonical" href="http://chinmay0301.github.io/2017/06/28/short-attention-iclr-summary.html" />
+<meta property="og:url" content="http://chinmay0301.github.io/2017/06/28/short-attention-iclr-summary.html" />
 <meta property="og:site_name" content="Chinmay Talegaonkar" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-06-28T10:00:55+05:30" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/2017/06/28/short-attention-iclr-summary.html","headline":"Frustratingly Short Attention Spans (ICLR 2017) - A Summary","dateModified":"2017-06-28T10:00:55+05:30","datePublished":"2017-06-28T10:00:55+05:30","description":"Through this blogpost I attempt to summarise the key ideas highlighted in an ICLR-2017 accepted paper, Frustratingly Short Attention Spans in Neural Language Modelling, (read it here), by Daniluk et al, of the University College London. You can read the official ICLR reviews on OpenReview.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017/06/28/short-attention-iclr-summary.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+{"url":"http://chinmay0301.github.io/2017/06/28/short-attention-iclr-summary.html","headline":"Frustratingly Short Attention Spans (ICLR 2017) - A Summary","dateModified":"2017-06-28T10:00:55+05:30","datePublished":"2017-06-28T10:00:55+05:30","description":"Through this blogpost I attempt to summarise the key ideas highlighted in an ICLR-2017 accepted paper, Frustratingly Short Attention Spans in Neural Language Modelling, (read it here), by Daniluk et al, of the University College London. You can read the official ICLR reviews on OpenReview.","mainEntityOfPage":{"@type":"WebPage","@id":"http://chinmay0301.github.io/2017/06/28/short-attention-iclr-summary.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -164,7 +164,7 @@ While implementing their new architecture, the authors notice a strange trend in
 
 <p>The main issue with traditional attention is evident from the equations, they try to squeeze three pieces of information in a single vector. (If you haven’t heard about attention models, you can head over to colah’s <a href="http://distill.pub/2016/augmented-rnns/">blog</a>). As depicted in the figure below, the paper assumes a fixed length attention span.</p>
 
-<p><img src="http://localhost:4000/assets/model1.png" alt="model1" /></p>
+<p><img src="http://chinmay0301.github.io/assets/model1.png" alt="model1" /></p>
 
 <p><strong>Notation</strong> - $x_t$ depicts input vectors, $c_t$ depicts the LSTM hidden vector, $h_t$ depicts the LSTM output vectors, $r$ contains the attention information and $h^*$ represents the final output vector (after attending to previous $h$ units).</p>
 
@@ -212,11 +212,11 @@ While implementing their new architecture, the authors notice a strange trend in
 
 <p>Figure 3(a) and Figure 3(b) of the paper show an interesting trend, and it seems like most of the attention is focussed on the previous 2-5 outputs only. The results of Figure 2(a) show similar perplexities across different attention sizes.</p>
 
-<p><img src="http://localhost:4000/assets/model2.png" alt="model2" /></p>
+<p><img src="http://chinmay0301.github.io/assets/model2.png" alt="model2" /></p>
 
 <p>This finding motivates the <em>$N$-Gram RNN</em>, a simple structure which <strong>always</strong> attends over the previous $N-1$ outputs. This is similar to $N$-gram language models, (<a href="https://dash.harvard.edu/bitstream/handle/1/25104739/tr-10-98.pdf?sequence=1">Chen and Goodman</a>), which use the previous $N-1$ tokens (a <em>context</em>) to predict the next token. More specifically,</p>
 
-<p><img src="http://localhost:4000/assets/model3.png" alt="model3" /></p>
+<p><img src="http://chinmay0301.github.io/assets/model3.png" alt="model3" /></p>
 
 <p>The LSTM outputs $N-1$ vectors (or equivalently divides $\color{blue}{h_{t}}$ into $N-1$ parts, each of which encode information to help predict the $i^{th}$ (from $1$ to $N-1$) token of the future. It’s a very simple neural network, and the four equations in each of the above models are replaced by,</p>
 
