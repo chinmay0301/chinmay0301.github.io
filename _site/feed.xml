@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chinmay Talegaonkar</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 24 Oct 2018 15:06:24 +0530</pubDate>
+    <lastBuildDate>Wed, 24 Oct 2018 15:06:24 +0530</lastBuildDate>
+    <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Crowdsourcing 101</title>
+        <description>&lt;p&gt;I recently used crowdsourced experiments for the first time during my Bachelor’s Thesis Project with &lt;a href=&quot;https://www.cse.iitb.ac.in/~pjyothi/&quot;&gt;Prof. Preethi Jyothi&lt;/a&gt;. In this blog I will share a few important steps we took to improve the quality of our crowdsourced data. I sincerely thank &lt;a href=&quot;https://people.cs.umass.edu/~miyyer/&quot;&gt;Prof. Mohit Iyyer&lt;/a&gt; for suggesting several useful tips during these experiments, many of which will appear throughout this blog.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Google defines crowdsourcing as “the practice of obtaining information or input into a task or project by enlisting the services of a large number of people, either paid or unpaid, typically via the Internet”. With the advent of deep learning, it is getting increasingly important to create high-quality large-scale datasets. This is where crowdsourcing can play an important role.&lt;/p&gt;
+
+&lt;p&gt;Crowdsourcing is very common in companies having products with a large userbase. For instance, Google deploys crowdsourcing on a very large scale for obtaining live traffic updates. Facebook can potentially use Messenger conversations for intelligent dialog agents.&lt;/p&gt;
+
+&lt;h3 id=&quot;services&quot;&gt;Services&lt;/h3&gt;
+
+&lt;p&gt;Unfortunately, not every organization plays an important role in the day-to-day lives of millions of people. Sometimes, even companies like Google might need very specific datasets which cannot be obtained directly using their products. This is when you turn to dedicated crowdsourcing services where crowdworkers are paid for performing certain tasks. Two popular online crowdsourcing services are &lt;a href=&quot;https://www.mturk.com/&quot;&gt;Amazon Mechanical Turk&lt;/a&gt; and &lt;a href=&quot;https://www.figure-eight.com/&quot;&gt;Figure Eight&lt;/a&gt; (which was previously known as CrowdFlower). For the result of this article, we will focus on Figure Eight.&lt;/p&gt;
+
+&lt;h3 id=&quot;task-setup&quot;&gt;Task Setup&lt;/h3&gt;
+
+&lt;p&gt;In the Figure Eight interface, you begin by adding a number of data rows, often CSV data (in the “DATA” tab). Make sure the first row in the file consists of column titles. &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/202702925-Adding-Data-Guide-to-Data-Page&quot;&gt;Here&lt;/a&gt; are Figure Eight’s guidelines on adding data.&lt;/p&gt;
+
+&lt;p&gt;The next stage (“DESIGN” tab) requires you to design the actual task. Crowdsourced experiments need to be well-thought of from the crowdworker’s perspective. Good experiments have &lt;strong&gt;clear instructions&lt;/strong&gt; and &lt;strong&gt;less ambiguity&lt;/strong&gt;. MCQ questions are generally preferred over textboxes for more meaningful data collection. For instance, let’s focus on the task of one sentence text classification. If we are specifically interested in sentiment, we should have options like “positive”, “negative”, “neutral” rather than leave a textbox and expect the crowdworker to fill in the sentiment. A person might use positive words “happy”, “joyful” etc. to describe the sentiment instead. For the rest of the article, we will focus on a binary sentiment classification task of one sentence.&lt;/p&gt;
+
+&lt;p&gt;The instructions section is quite important, and you could expect most crowdworkers to go through it atleast once during the task. Here are a few tips I learnt from my experience -&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Try to make the title and instructions as &lt;strong&gt;unbiased&lt;/strong&gt; as possible. Sentences like “most of these sentences are unlikely to be positive” should be avoided.&lt;/li&gt;
+  &lt;li&gt;Instructions should &lt;strong&gt;suitably describe the task to be performed&lt;/strong&gt;. One way to ensure this is to show the task preview to a third person unfamiliar with the research project or problem setting.&lt;/li&gt;
+  &lt;li&gt;Try to include &lt;strong&gt;examples for every possible answer&lt;/strong&gt;. For instance, in a binary sentiment classification task sample positive, negative and neutral sentences should be presented.&lt;/li&gt;
+  &lt;li&gt;A “Tips” section should be added to &lt;strong&gt;describe unclear questions or options&lt;/strong&gt;. For instance, pre-processing details should be described if they are significantly going to affect the question statement.&lt;/li&gt;
+  &lt;li&gt;Use &lt;strong&gt;HTML formatting&lt;/strong&gt; (colors, bolds, italics, underline)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is the instruction set I used during my experiments.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/instructions.png&quot; alt=&quot;instructions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is a good idea to read Figure Eight’s official &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/202703325&quot;&gt;Design Tips&lt;/a&gt; and &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/201855779&quot;&gt;Instruction Tips&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;quality-assurance&quot;&gt;Quality Assurance&lt;/h3&gt;
+
+&lt;p&gt;The next tab (“Quality”) is a quality control measure to ensure that only those people who understand the task correctly are recording their judgements. Every crowdworker appears for a test before starting the task. Throughout the task, the worker is presented with a few hidden test questions. These tests are designed by us, along with a gold set of correct answers (and an option to choose multiple correct answers for ambiguous questions). The crowdworker’s judgements on these test questions determine their competence for the task. Figure Eight rejects workers who fail the initial quiz and marks a user’s judgements as “Untrusted” if he makes several mistakes on subsequent hidden test questions. Figure Eight requires you to create atleast 8 test questions and often recommends you to create more test questions to speed up data collection. Figure Eight has released a couple of guides on &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/213078963-Test-Question-Best-Practices&quot;&gt;Test Questions Best Practices&lt;/a&gt; and &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/212868883-How-to-Monitoring-Test-Questions&quot;&gt;Monitoring Test Questions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my experience, &lt;strong&gt;test questions should be very close to the actual task&lt;/strong&gt;, but as &lt;strong&gt;less ambiguous as possible&lt;/strong&gt;. Ambiguous questions are often contested by crowdworkers and might affect the quality of judgements provided. &lt;strong&gt;Very easy test questions are also harmful&lt;/strong&gt;, since they might be passed by spammers or incompetent crowdworkers (a big problem!). Finally, it’s also a good idea to keep an &lt;strong&gt;even distribution of answers&lt;/strong&gt; so prevent biasing crowdworkers while they perform the actual task.&lt;/p&gt;
+
+&lt;p&gt;Keeping good test questions isn’t the only quality assurance technique (and often not enough). A few additional settings can often improve the data collected significantly. Here are a few such settings,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Contributor Channels&lt;/strong&gt; - Keep this at Level 3 if time is not a constraint, but switch to Level 2 if you are in a rush. Level 2 and 3 crowdworkers have a reputation of getting test questions correct (based on their contribution history on Figure Eight) and are less likely to be spammers. Advanced settings include choosing contributor channels (Figure Eight has a &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/203219195-Job-Settings-Guide-To-Contributors-Channels-Page&quot;&gt;guide&lt;/a&gt; on this) and language restrictions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Geography&lt;/strong&gt; - It might help allowing crowdworkers from certain locations only for your experiments. For instance in complicated English NLP tasks, it is a good idea to allow workers only from predominantly English speaking countries. For regional tasks, it makes no sense allowing workers not residing in that region.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Quality Control Settings&lt;/strong&gt; - This setting allows you to keep a minimum time per page (to remove clear spammers) and maximum judgements per worker (to further reduce the effect of bad workers who might slip through). Figure Eight has published a &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/201855709-Job-Settings-Guide-To-Quality-Control-Page&quot;&gt;guide&lt;/a&gt; for quality control settings.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;launch--payment&quot;&gt;Launch &amp;amp; Payment&lt;/h3&gt;
+
+&lt;p&gt;Finally, jobs can be launched in the “Launch” tab on Figure Eight. Figure Eight recommends launching a part of the data (typically 100 rows) as a test run before launching the rest of the data. The “Judgements per Row” setting is again very experiment-specific. Figure Eight offers a “Dynamic Judgements” option, an automated solution to evaluate rows with a less agreement multiple times. (&lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/203219205-Job-Settings-Guide-to-Dynamic-Judgments&quot;&gt;here&lt;/a&gt; is their guide)&lt;/p&gt;
+
+&lt;p&gt;A very important section here is the price per judgement. It is recommended to pay atleast 7.25$ per hour (&lt;strong&gt;minimum wage&lt;/strong&gt; in USA). One way to convert this to “Price per Judgement” is to perform the task yourself and assess the time it takes per judgement. Generally, a larger payment will cost you significantly more but will speed up the data collection. The difficulty of the task should also be considered. &lt;strong&gt;Crowdworkers tend to prefer easier, repetitive tasks&lt;/strong&gt; (like sentiment classification) rather than more challenging tasks requiring mental effort (like summary writing). Be prepared to pay higher wages to convince crowdworkers that the extra effort is worth it!&lt;/p&gt;
+
+&lt;p&gt;Figure Eight has a &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/202703165-Get-Results-Job-Costs&quot;&gt;Jobs Cost FAQ&lt;/a&gt; aricle for reference.&lt;/p&gt;
+
+&lt;h3 id=&quot;monitoring--speed&quot;&gt;Monitoring &amp;amp; Speed&lt;/h3&gt;
+
+&lt;p&gt;Now that the job has been launched, you can sit back and enjoy the magic of crowdsourcing! The Figure Eight interface is kind-of addicting and you can monitor indvidual contributors as well as assess the overall progress. It is important to keep track of the test questions many workers are marking incorrectly, since they might be ambiguous or mistakes on your part. Workers might contest test questions and you can forgive workers who present a valid explanation for their answers. Finally, some workers might fill a job feedback survey, which is an assessment of the ease, clarity and payment in the job.&lt;/p&gt;
+
+&lt;p&gt;Jobs might not run as fast as you need them to. Here are a few useful tricks to speed up your jobs,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Increase Payment&lt;/strong&gt; - This is the most reliable way to speed up data collection. However, I could not find a way to increase the payment for data rows that were in progress. Maybe it is a better idea not to order all data rows at once.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Increase Judgements Per User&lt;/strong&gt; - This is a helpful trick but might reduce the quality of data collected. This setting can eadjusted under the “Quality Control” setting tab.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Contributor Channels&lt;/strong&gt; - Reducing the minimum contributor level (Level 3 to Level 2 for instance) or making the geographic settings more liberal will certainly speed up jobs. Again do this with care to not compromise too much on the quality.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Internal Workforce&lt;/strong&gt; - Yes, you can ask your friends to perform the task too, free of cost! While the maximum judgements per user limit would still apply, this is a very reliable way to speed up your crowdsourced experiments. You won’t compromise on quality either, since internal workers need to pass the test too and I am sure you would choose your friends wisely! :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Figure Eight has several guides on monitoring jobs, a &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/202703045&quot;&gt;Dashboard Guide&lt;/a&gt;, on &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/203558025&quot;&gt;Auto-Paused Jobs&lt;/a&gt; and a &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/115000516386&quot;&gt;guide&lt;/a&gt; to convert finalized rows into test questions.&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+&lt;p&gt;Once jobs complete, there are several detailed reports available for download. (under the “Results” tab). Make sure you adjust the settings to download data in the most suitable format for post-processing. Figure Eight has a nice &lt;a href=&quot;https://success.figure-eight.com/hc/en-us/articles/202703075&quot;&gt;guide&lt;/a&gt; on reports.&lt;/p&gt;
+
+&lt;p&gt;I have had a lot of fun in my first crowdsourcing experiment, and I hope to continue doing such experiments during my PhD. If you would like to add something to this article, feel free to get in touch!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Jun 2018 09:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2018/06/05/crowd-sourcing.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/05/crowd-sourcing.html</guid>
+        
+        <category>nlp</category>
+        
+        <category>research</category>
+        
+        <category>crowd</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Computer Science Opportunities</title>
+        <description>&lt;p&gt;This is an article enlisting a number of opportunities in Computer Science you could pursue as an undergraduate at IIT Bombay. It &lt;strong&gt;does not&lt;/strong&gt; talk about career paths in Computer Science &lt;em&gt;after&lt;/em&gt; graduating, rather focusses on what you &lt;strong&gt;can do&lt;/strong&gt; &lt;em&gt;while you are&lt;/em&gt; an undergraduate at IIT Bombay.&lt;/p&gt;
+
+&lt;h3 id=&quot;courses&quot;&gt;Courses&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Computer Science Minor Degree&lt;/strong&gt; - A suite of five basic courses in Computer Science designed for non-CS undergraduates. Some of these courses are simpler than their counterparts for CS undergraduates, but they create a good foundation for Computer Science studies. You can find more information about the courses in the &lt;a href=&quot;https://gymkhana.iitb.ac.in/~ugacademics/Docs/CourseInfo_Booklet.pdf&quot;&gt;Course Information Booklet&lt;/a&gt;. I have also written a short review on Page 24 in the &lt;a href=&quot;https://gymkhana.iitb.ac.in/~ugacademics/Docs/SOPHIE_BOOKLET.pdf&quot;&gt;Sophomore Booklet&lt;/a&gt;.&lt;br /&gt;
+An RnD project (CS490) or a 6xx / 7xx CS course could be included in the minor degree along with four minor courses.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Computer Science Coursework&lt;/strong&gt; - In addition to the minor courses, you are free to take CS courses as your Institute Electives or ALCs (Additional Learning Courses). While this might need instructor approval occasionally, it is generally quite smooth for the elective courses (4xx, 6xx, 7xx). I don’t recommend sitting-through courses (attending classes only), unless you are looking to learn a very specific topic or part of the course, since you are unlikely to appreciate the nitty-gritties of a subject without regular practice, assignments and examinations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Your Own Department&lt;/strong&gt; - Several faculty in non-CSE department work in areas closely related to Computer Science. In turn, they conduct courses in their own department at the intersection of CS and their own department. Notably, the EE department has active courses in cryptography, information theory, computer vision, machine learning, computer architecture etc. These electives could be taken up as Department Electives or ALCs (Additional Learning Courses).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;research-opportunities&quot;&gt;Research Opportunities&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Computer Science Faculty&lt;/strong&gt; - Several CS faculty are actively looking for students to work on research projects with them. These projects are not restricted to the CS students, and with the right background and motivation faculty are happy to work with non-CS students as well. &lt;a href=&quot;https://www.cse.iitb.ac.in/page14&quot;&gt;Here&lt;/a&gt; is a complete list of faculty at CSE IIT Bombay. It’s a good idea to work with faculty via Seminars, RnD Projects (CS490), or BTech Projects in the CS department since you obtain course credits for your work and it’s generally easier to score good grades in these projects. (Crediting the projects will also motivate you to work harder!)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Your Own Department&lt;/strong&gt; - Several faculty work at the intersection on CS and their home department, and working with them is a good idea for CS experience. For instance, &lt;a href=&quot;https://www.aero.iitb.ac.in/~prabhu/index.html&quot;&gt;Prof. Prabhu Ramachandran&lt;/a&gt; at Aerospace, IIT Bombay works in computation fluid dynamics; &lt;a href=&quot;https://www.ee.iitb.ac.in/web/people/faculty/home/sc&quot;&gt;Prof. Subhasis Chaudhari&lt;/a&gt; at EE, IIT Bombay works in Computer Vision; &lt;a href=&quot;https://www.ee.iitb.ac.in/web/people/faculty/home/manojg&quot;&gt;Prof. Manoj Gopalakrishnan&lt;/a&gt; at EE, IIT Bombay works in biological computing; &lt;a href=&quot;https://www.ee.iitb.ac.in/web/people/faculty/home/asethi&quot;&gt;Prof. Amit Sethi&lt;/a&gt; in EE, IIT Bombay works in Medical Computer Vision. You could take these projects up via RnD Projects or BTech Projects in your own department.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Reading Groups, Talks&lt;/strong&gt; - There are a plethora of events happening daily in IIT Bombay, and talks on Computer Science are no exception. The CSE Department has a number of weekly talks at the FC Kohli Auditorium, often by our own faculty (Faculty Unplugged Seminar Series / FUSS) or professors from outside IIT Bombay (CSE Department Talks). A number of reading groups are organized on a weekly / bi-weekly schedule, notably the &lt;a href=&quot;https://www.cse.iitb.ac.in/~ml/&quot;&gt;AIML reading group&lt;/a&gt;. &lt;a href=&quot;http://wncc-iitb.org/&quot;&gt;The Web and Coding Club&lt;/a&gt; at IIT Bombay organize informal talks on undegraduate research experiences (&lt;a href=&quot;https://wncc-iitb.org/wiki/index.php/Reflections&quot;&gt;Reflections&lt;/a&gt;). Finally, the &lt;a href=&quot;https://www.facebook.com/groups/csec.iitb/&quot;&gt;CSE Cybersecurity Club&lt;/a&gt; and &lt;a href=&quot;https://www.facebook.com/groups/BioBytesIITB/&quot;&gt;BioBytes Student Reading Group&lt;/a&gt; are two student-run clubs organizing biweekly talks on computer security and biological computing respectively.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;internship-opportunities&quot;&gt;Internship Opportunities&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Google Summer of Code (GSoC) / Outreachy&lt;/strong&gt; - These are exciting opportunities in the world of open source - a chance to get to work on a real-world codebase with excellent developers from across the world. Selection into this program is completely based on prior open source experience and a final project proposal. &lt;a href=&quot;http://wncc-iitb.org/&quot;&gt;The Web and Coding Club&lt;/a&gt; at IIT Bombay runs an incubation cell for GSoC projects and has a detailed guide &lt;a href=&quot;https://wncc-iitb.org/wiki/index.php/Open_Source&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Placement Cell&lt;/strong&gt; - A number of start-ups, companies and universities offer Computer Science based interships via the &lt;a href=&quot;http://placements.iitb.ac.in/&quot;&gt;Placement Cell&lt;/a&gt; at IIT Bombay. Selections for the company internships are generally done via a computerized test followed by an interview. It’s a good idea to start building your competitive programming skillset for these tests. &lt;a href=&quot;https://wncc-iitb.org/wiki/index.php/Competitive_Programming&quot;&gt;Here&lt;/a&gt; is a beginner’s guide.&lt;br /&gt;
+University internship selections often use CPI, prior work, recommendation letters or an interview for selection. It’s preferred to apply to dedicated undergraduate internship programs for greater flexibility in the project. MITACS, Viterbi, SN Bose, DAAD are popular internship programs among IIT Bombay undergraduates.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Direct Applications&lt;/strong&gt; - While it’s always better to apply to dedicated internship programs, you could directly email suitable university professors or company recruiters, seeking an internship. There is a very specific way to do this, &lt;strong&gt;do not spam&lt;/strong&gt;. The best strategy is to first work with a professor in IIT Bombay and gain some research experience in some area of Computer Science. Then, contact professors who know your IIT Bombay advisor or whose work is closely aligned to your advisor’s. If you have built a good rapport with your IIT Bombay advisor, feel free to take his / her advice about this.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Seasons of Code / ITSP&lt;/strong&gt; - The &lt;a href=&quot;http://wncc-iitb.org/soc&quot;&gt;Seasons of Code&lt;/a&gt; is a student-run initiative where you get a chance to work with a senior undergraduate from IIT Bombay on his / her Computer Science project. This is a great chance (especially in your first two years) to get your hands dirty and find a good senior mentor (who could potentially guide you in your future career endeavours).&lt;br /&gt;
+The &lt;a href=&quot;http://stab-iitb.org/itsp&quot;&gt;Institute Technical Summer Project&lt;/a&gt; (ITSP) is another student-run initiative where freshers get to work on a project of their choice along with a small budget over their first year’s summer. Students are free to work on technical projects in Computer Science, Electronics, Aeromodelling, Astronomy etc and are assigned a suitable mentor.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;other-opportunities&quot;&gt;Other Opportunities&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tech Teams&lt;/strong&gt; - Most Tech Teams at IIT Bombay have a Software Subsystem requiring CSE enthusiasts. Have a look at the “Tech Teams” tab in the Institute Technical Council’s &lt;a href=&quot;http://stab-iitb.org/&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Online Resources&lt;/strong&gt; - A number of online courses, blogs, video tutorials can be quite useful while learning Computer Science. &lt;a href=&quot;https://github.com/prakhar1989/awesome-courses&quot;&gt;Here&lt;/a&gt; is an excellent topicwise compilation of awesome university courses to learn CS. Notably, &lt;a href=&quot;https://ocw.mit.edu/index.htm&quot;&gt;MIT OCW&lt;/a&gt; and &lt;a href=&quot;http://coursera.org/&quot;&gt;Coursera&lt;/a&gt; are good places to find video lectures of complete courses. Stanford has publically released a number of machine learning courses like &lt;a href=&quot;http://web.stanford.edu/class/cs224n/&quot;&gt;CS224n&lt;/a&gt;, &lt;a href=&quot;http://cs229.stanford.edu/&quot;&gt;CS229&lt;/a&gt; and &lt;a href=&quot;http://cs231n.stanford.edu/&quot;&gt;CS231n&lt;/a&gt;.&lt;br /&gt;
+Finally, &lt;a href=&quot;https://wncc-iitb.org/wiki/index.php/The_Web_and_Coding_Club&quot;&gt;here&lt;/a&gt; is a compilation of a number of topic-wise introductory programming articles and guides by &lt;a href=&quot;http://wncc-iitb.org/&quot;&gt;The Web and Coding Club&lt;/a&gt;, IIT Bombay.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Competitions&lt;/strong&gt; -&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://icpc.baylor.edu/&quot;&gt;ACM ICPC&lt;/a&gt; - This is a popular contest in which a number of CS students from IIT Bombay take part (and do well!). “Competitive Coding” in its true sense, preparation for this contest requires significant comfort with data structures and a lot of practice. &lt;a href=&quot;https://wncc-iitb.org/wiki/index.php/Competitive_Programming&quot;&gt;Here&lt;/a&gt; is a guide to get you started. &lt;a href=&quot;https://www.codechef.com/certification/prepare&quot;&gt;Here&lt;/a&gt; is a useful certification by CodeChef.&lt;/li&gt;
+      &lt;li&gt;Capture the Flag Events - These are computer security competitions which are quite popular among CS undergraduates at IIT Bombay. &lt;a href=&quot;https://www.defcon.org/html/links/dc-ctf.html&quot;&gt;DEFCON CTF&lt;/a&gt; is one popular international level CTF. Contact the &lt;a href=&quot;https://www.facebook.com/groups/csec.iitb/&quot;&gt;CSE Cybersecurity Club&lt;/a&gt; for more details.&lt;/li&gt;
+      &lt;li&gt;Hackathons - A number of hackathons are organized throughout the year, sponsored by tech companies and startups. These are generally co-organized with an institute body like &lt;a href=&quot;http://wncc-iitb.org/&quot;&gt;The Web and Coding Club&lt;/a&gt; at IIT Bombay or the &lt;a href=&quot;http://cse.iitb.ac.in/&quot;&gt;Computer Science Department&lt;/a&gt; at IIT Bombay. Notably, Microsoft organizes a two-stage hackathon yearly, named &lt;a href=&quot;https://www.acadaccelerator.com/&quot;&gt;code.fun.do&lt;/a&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Feel free to contact me in case you would like to add something to the article!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 04 Jun 2018 09:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2018/06/04/cs-opportunities.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/04/cs-opportunities.html</guid>
+        
+        <category>computer</category>
+        
+        <category>science</category>
+        
+        <category>iitb</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Grad School Resources</title>
+        <description>&lt;p&gt;I previously wrote an &lt;a href=&quot;/2017/12/08/gre-toefl-preparation.html&quot;&gt;article&lt;/a&gt; on GRE and TOEFL preparation. This is my second blogpost on graduate school admissions. I have tried to compile all the online resources I used to prepare my graduate school application.&lt;br /&gt;
+Most of this advice is written by professors and is focussed towards PhD applicants. Several webpages shared in this blog contain a wide-spectrum of advice articles, many of which are relevant to undergraduates and graduate school applicants.&lt;/p&gt;
+
+&lt;h3 id=&quot;ms-application-guides&quot;&gt;MS Application Guides&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cs.stanford.edu/people/rkarthik/DAGAP.pdf&quot;&gt;Karthik Raghunathan’s Guide&lt;/a&gt; - An article describing the admission process in Stanford’s MS in Computer Science program. This article after his own experience reviewing applications in the Stanford admission committee. It gives a nice idea about what application reviewers are looking for.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;phd-application-guides&quot;&gt;PhD Application Guides&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.cs.cmu.edu/~harchol/gradschooltalk.pdf&quot;&gt;Mor Harchol Balter’s Guide&lt;/a&gt; - An excellent but slightly out-dated guide on writing good PhD applications by a CMU professor. This is a very comprehensive article which starts with the pros and cons of a PhD degree, moves to the application process and ends with some advice on choosing the correct graduate program.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.pgbovine.net/PhD-application-tips.htm&quot;&gt;Philip Guo’s Five-Minute Guide&lt;/a&gt; - A short guide describing the initial screening process during PhD admissions. Lots of interesting videos / articles in the “related pages” section at the end of the guide. You might find the Statements of Purpose linked in this article useful.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.pgbovine.net/grad-school-app-tips.htm&quot;&gt;Philip Guo’s Older Guide&lt;/a&gt; - A more comprehensive article listing the best strategies to maximize your chances of selection. This was written while Philip Guo was still a graduate student.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://jxyzabc.blogspot.com/2008/08/cs-grad-school-part-1-deciding-to-apply.html&quot;&gt;Jean Yang’s Guide&lt;/a&gt; - A seven-part comprehensive article on the whole PhD admission process. Jean Yang’s Statement of Purpose is very well-written, and helped me considerably. This guide also contains details about what to look for during visit days.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.cs.jhu.edu/~jason/advice/prospective-students.html&quot;&gt;Jason Eisner’s Guide&lt;/a&gt; - A very nice article on graduate admission process, with a focus on JHU admissions into the &lt;a href=&quot;http://clsp.jhu.edu/&quot;&gt;Center for Language and Speech Processing (CLSP)&lt;/a&gt; (a top research group for prospective NLP / Speech students). This article contains an important section on school rankings (and why they should be taken with a grain of salt).&lt;br /&gt;
+Prof. Jason Eisner has written several excellent advice articles &lt;a href=&quot;http://www.cs.jhu.edu/~jason/advice/&quot;&gt;here&lt;/a&gt;, some of which are relevant to graduate school admissions. He is also quite active on Quora.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.quora.com/What-does-the-admissions-committee-process-for-graduate-school-look-like-Do-you-sit-in-a-room-and-all-discuss-the-same-candidate-at-the-same-time-or-is-it-more-of-an-individual-process-with-opinions-aggregated-at-the-end&quot;&gt;CMU LTI Admission Guide&lt;/a&gt; - This Quora answer by Scott Fahlman is very specific to to MLT / PhD admissions at LTI (Language Technologies Institute) at Carnegie Mellon University (CMU). There is another answer by Alex Rudnicky &lt;a href=&quot;https://www.quora.com/How-competitive-is-admission-to-the-masters-program-at-Carnegie-Mellons-Language-Technologies-Institute-for-applicants-who-dont-have-an-undergraduate-degree-in-computer-science-but-do-have-an-undergraduate-degree-in-linguistics-with-some-computer-science-coursework&quot;&gt;here&lt;/a&gt;. Scott Fahlman has written several interesting Quora answers on NLP and academica-related topics &lt;a href=&quot;https://www.quora.com/profile/Scott-E-Fahlman/answers?sort=views&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://matt.might.net/articles/how-to-apply-and-get-in-to-graduate-school-in-science-mathematics-engineering-or-computer-science/&quot;&gt;Matthew Might’s Guide&lt;/a&gt; - An excellent blog focussing on the importance of good recommendation letters and prior research experience (preferrably publications). Has some nice examples of accepted and rejected applications towards the end. Matthew Might has written many comprehensive advice articles (see “Related posts”) on sending emails, doing research etc. One celebrated article (rather, a collection of pictures) is &lt;a href=&quot;http://matt.might.net/articles/phd-school-in-pictures/&quot;&gt;An Illustrated Guide to A PhD&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.cs.virginia.edu/~evans/advice/prospective.html&quot;&gt;David Evan’s Guide for Writing Emails&lt;/a&gt; - A popular article on the optimal strategy to emailing prospective PhD advisors. A must-read if you are planning to send out emails to professors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://homes.cs.washington.edu/~mernst/advice/apply-grad-school.html&quot;&gt;Micheal Ernst’s Guide&lt;/a&gt; - You can see all the advice articles written by Micheal Ernst &lt;a href=&quot;https://homes.cs.washington.edu/~mernst/advice/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://people.eecs.berkeley.edu/~justine/advice.pdf&quot;&gt;Justine Sherry’s Guide&lt;/a&gt; - A University of Washington CSE student’s guide on graduate school applications. A bit specific to UW.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://cwfletcher.net/Pages/SoP.php&quot;&gt;Christopher Fletcher’s Guide on Personal Statements&lt;/a&gt; - This guide includes his personal statements as well. He has shared some more advice articles &lt;a href=&quot;http://cwfletcher.net/Pages/Thoughts.php&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://homes.cs.washington.edu/~nasmith/advice.html&quot;&gt;Noah Smith’s Advice&lt;/a&gt; - A post-selection article summing up the factors one should consider while choosing between graduate schools (post-selection). This article advises against using college rankings and focussing on the prospective advisors instead. Noah Smith has also written some advice for undergraduates considering graduate school &lt;a href=&quot;https://homes.cs.washington.edu/~nasmith/undergrads.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;phd-experiences&quot;&gt;PhD Experiences&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.pgbovine.net/PhD-memoir/pguo-PhD-grind.pdf&quot;&gt;Philip Guo’s Experience&lt;/a&gt; (&lt;em&gt;PhD Grind&lt;/em&gt;) - A first hand account of Phillip Guo’s experience completing a PhD in Computer Science. This article describes (in utmost detail) the highs and lows during a PhD in Computer Science, and ends with a few reasons describing why a PhD might be worth it. A &lt;strong&gt;must-read&lt;/strong&gt; if you are confused between an MS and a PhD.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://jxyzabc.blogspot.com/2016/02/my-phd-abridged.html&quot;&gt;Jean Yang’s Experience&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;phd-advice&quot;&gt;PhD Advice&lt;/h3&gt;
+&lt;p&gt;These articles are guides for having a more successful PhD (&lt;em&gt;after&lt;/em&gt; joining a PhD program).&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.cs.jhu.edu/~mdredze/publications/HowtoBeaSuccessfulPhDStudent.pdf&quot;&gt;Mark Dredze and Hannah Wallach’s Guide&lt;/a&gt; - A guide with a number of tips to have a successful PhD in NLP / ML. It is quite comprehensive and contains very good advice written by two top NLP researchers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://ttic.uchicago.edu/~kgimpel/etc/phd-advice.pdf&quot;&gt;Kevin Gimpel’s Advice&lt;/a&gt; - A gem of an article with a unique perspective on the PhD experience. Titled “How to be a Happier PhD Student”, it’s a motivating read to recover from bad, unproductive days.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://karpathy.github.io/2016/09/07/phd/&quot;&gt;Andrej Karpathy’s Guide&lt;/a&gt; (&lt;em&gt;A Survival Guide to a PhD&lt;/em&gt;) - A famous blog by an ex-Stanford PhD student. Andrej Karpathy’s articles are quite famous in the machine learning community.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.eecs.harvard.edu/htk/phdadvice/&quot;&gt;H.T. Kung’s Advice&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.robots.ox.ac.uk/~phst/&quot;&gt;Phillip Torr’s Guides&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 30 May 2018 00:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2018/05/30/grad-resources.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/30/grad-resources.html</guid>
+        
+        <category>grad</category>
+        
+        <category>ms</category>
+        
+        <category>phd</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>GRE and TOEFL Preparation - 2</title>
+        <description>&lt;p&gt;This blog is a continuation of my initial GRE / TOEFL &lt;a href=&quot;/2017/12/08/gre-toefl-preparation.html&quot;&gt;blog&lt;/a&gt; and focusses on TOEFL.&lt;/p&gt;
+
+&lt;h2 id=&quot;toefl---test-of-english-as-a-foreign-language&quot;&gt;TOEFL - Test of English as a Foreign Language&lt;/h2&gt;
+
+&lt;p&gt;TOEFL (specifically iBT - Internet Based Test) is scored out of 120 marks, 30 marks for each section (Reading, Writing, Speaking and Listening). For nearly all programs under the sun, a total score of 110 is considered “safe”. For most programs, the minimum requirements hover between 90-100. However, this “minimum requirement” has a catch, since most programs ask for minimum scores in each section. A few programs with extensive Teach Assistant requirements have high Speaking score requirements (26-28). However, like the GRE, TOEFL scores are used more like a “threshold”. Your actual score is of little importance as long as your cross the threshold.&lt;/p&gt;
+
+&lt;p&gt;TOEFL, unlike GRE, is evaluated quite leniently. You DO NOT need all correct answers to score full marks in any section. The evaluators of the Writing and Speaking section are quite generous, and you don’t need perfect essays or speech for perfect marks.&lt;/p&gt;
+
+&lt;h3 id=&quot;choosing-a-date&quot;&gt;Choosing a Date&lt;/h3&gt;
+
+&lt;p&gt;I gave my TOEFL exam on 24th September, 2017 (for reference, my graduate applications were due in December 2017), and registered for it on 25th July, 2017. Similar to GRE, June to October are rush-hours, and it’s often hard to get weekend slots. Try to book 3-4 months in advanced. Payment require credit card (keep one handy, it is needed for graduate applications too), and the cost is a whopping 180$!&lt;/p&gt;
+
+&lt;h3 id=&quot;toefl-preparation&quot;&gt;TOEFL Preparation&lt;/h3&gt;
+
+&lt;p&gt;I studied about one week for TOEFL. This should be sufficient if you are from an English-medium school or college. Since I had given GRE a few weeks before TOEFL, I didn’t particularly prepare for the Reading and Writing sections. The reading and writing sections are similar to GRE’s reading comprehensions and AWA section, just a LOT simpler. If you were having trouble finishing the verbal or AWA sections for GRE (or haven’t given GRE yet), I suggest practising each of these sections (with a time limit) atleast 2-3 times. In my opinion, the stipulated time is &lt;em&gt;just-enough&lt;/em&gt; to complete these sections. I will focus more on the Listening and Speaking section in this guide.&lt;/p&gt;
+
+&lt;h4 id=&quot;preparation-material&quot;&gt;Preparation Material&lt;/h4&gt;
+
+&lt;p&gt;I primarily used Magoosh’s YouTube videos. &lt;a href=&quot;https://www.youtube.com/watch?v=tPkfMf-FFW8&quot;&gt;This&lt;/a&gt; video is a good starting point. MagooshTOEFL’s YouTube &lt;a href=&quot;https://www.youtube.com/user/MagooshTOEFL/&quot;&gt;channel&lt;/a&gt; has a plethora of good videos, and post a “TOEFL Tuesday” video each week. I personally went through several videos on Listening and Speaking skills on this channel. Additionally, &lt;a href=&quot;https://www.youtube.com/channel/UCAQg09FkoobmLquNNoO4ulg/featured&quot;&gt;lingunamaria&lt;/a&gt; has a good TOEFL &lt;a href=&quot;https://www.youtube.com/watch?v=Hw6PvrRiv20&amp;amp;list=PLoDjs_CkjI66XZ8sDqClffaFfEz4gEux3&quot;&gt;playlist&lt;/a&gt;, along with her personal TOEFL experience.&lt;/p&gt;
+
+&lt;p&gt;For practice, I used the &lt;a href=&quot;https://www.amazon.in/dp/9385880195/ref=pd_lpo_sbs_dp_ss_2?pf_rd_p=cd818f9c-142a-4b42-ad2c-f0421857aaf5&amp;amp;pf_rd_s=lpo-top-stripe&amp;amp;pf_rd_t=201&amp;amp;pf_rd_i=8175964936&amp;amp;pf_rd_m=A1VBAL9TL5WCBF&amp;amp;pf_rd_r=JKF239A8EWMX54DTKN10&amp;amp;pf_rd_r=JKF239A8EWMX54DTKN10&amp;amp;pf_rd_p=cd818f9c-142a-4b42-ad2c-f0421857aaf5&quot;&gt;Official TOEFL iBT&lt;/a&gt; Volume 1 &amp;amp; 2. More specifically, I used the computer-delivered versions of the tests using the provided DVD. This package contains ten real iBT TOEFL practice tests.&lt;/p&gt;
+
+&lt;p&gt;For Linux users, I could not succeed in installing this software using &lt;a href=&quot;https://www.winehq.org/&quot;&gt;WineHQ&lt;/a&gt;. I eventually used a virtual machine installation of Windows 7 (using &lt;a href=&quot;https://www.virtualbox.org/&quot;&gt;VirtualBox&lt;/a&gt;). This installation worked quite well for me, without any audio issue.&lt;/p&gt;
+
+&lt;h4 id=&quot;diagnostic-test&quot;&gt;Diagnostic Test&lt;/h4&gt;
+
+&lt;p&gt;Doing a diagnostic test is harder for TOEFL, since your essay writing and speaking sections will not be evaluated. I did the Listening and Speaking sections of one practice test (among the ten linked above) as diagnostic. I recorded my Speaking section’s answers, and evaluated them subjectively against some &lt;a href=&quot;https://www.ets.org/s/toefl/pdf/toefl_speaking_rubrics.pdf&quot;&gt;official metrics&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;listening-preparation&quot;&gt;Listening Preparation&lt;/h4&gt;
+
+&lt;p&gt;Listening sections are hard since you have to pick out the most important information from 5 minutes of &lt;em&gt;dense&lt;/em&gt; audio clips. The audio is played just once, so note-making skills are critical here. It is quite hard to note down everything and difficult to understand what is going to become essential information while answering the questions.&lt;/p&gt;
+
+&lt;p&gt;Luckily, the questions are quite straightforward. A couple of questions replay small segments of the audio clip. After a few practice tests, I noticed that a similar pattern of questions are asked test after test. The audio clips are scripted, and the &lt;strong&gt;most important information is repeated 2-3 times in the clip&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Generally, student conversations are easier to retain and shorter in length. The classroom lectures are longer, and difficult to follow if you misunderstand the first few concepts. This section requires the most concentration, leave no stone unturned while preparing for this section. I personally solved most of the listening sections in the ten TOEFL practice tests (linked above).&lt;/p&gt;
+
+&lt;h4 id=&quot;speaking-preparation&quot;&gt;Speaking Preparation&lt;/h4&gt;
+
+&lt;p&gt;I was particularly nervous about the Speaking Section, since I needed a score of 26 for one of my graduate programs. I started off with &lt;a href=&quot;https://magoosh.com/toefl/2017/toefl-speaking/&quot;&gt;this&lt;/a&gt; Magoosh guide, and watched a few videos on MagooshTOEFL’s YouTube &lt;a href=&quot;https://www.youtube.com/user/MagooshTOEFL/&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I was particularly nervous about the preparation time given for each question in the Speaking section. However, you should add 10-15 seconds to the mentioned preparation time, since the question is printed on the screen while it is being read out slowly. I found it useful to write down the key ideas I intend to talk about. Occasional stammering is all right, but make sure you keep talking till the very end. It’s also important to speak slowly and clearly.&lt;/p&gt;
+
+&lt;p&gt;Most importantly, get over the fear / awkwardness of talking into the microphone. Most of us are not seasoned YouTubers or radio jockeys. This will only come with practice. I personally did all ten speaking practice tests (linked above) before my final TOEFL exam.&lt;/p&gt;
+
+&lt;h3 id=&quot;exam-day-preparation&quot;&gt;Exam Day Preparation&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANT&lt;/strong&gt; - Make sure you have decided a list of 4 colleges to send your scores to. Do check whether the program require TOEFL scores. Some programs waiver TOEFL for Indian students, since English is one of India’s two native languages. The list of colleges need to be updated on the TOEFL portal in the night before the exam at the very latest.&lt;/p&gt;
+
+&lt;p&gt;Make sure you carry your passport and snacks for the 10 minute break. Be sure you completely understand the exam pattern. Water is NOT ALLOWED in the exam room. The 10 minute break is the only time you will get to use the restroom, eat, or drink something. Carrying a jacket is ALLOWED, and a good idea since the exam hall is cold. The actual TOEFL exam has an extra experimental section, and takes about four and a half hours in total.&lt;/p&gt;
+
+&lt;p&gt;It might get quite awkward during the exam to speak out loudly in the microphone with so many other people in the room. It’s even more awkward when you are the ONLY person in the hall currently on the Speaking section. I tried my best to return from the ten minute break at a point where a few people had begun their Speaking section, while a few people were yet to return from their break. Unfortunately, the headphones in Mumbai’s centre do not cancel background noise well and you can clearly hear other people deliver their voice essays.&lt;/p&gt;
+
+&lt;p&gt;My TOEFL marks were a little unexpected, but quite satisfactory. I scored 115/120, with 29 in Listening, 29 in Writing, 30 in Reading and 27 in Speaking. Most people I know did quite well in TOEFL, without significant preparation.&lt;/p&gt;
+
+&lt;h3 id=&quot;gre---graduate-record-examination&quot;&gt;GRE - Graduate Record Examination&lt;/h3&gt;
+
+&lt;p&gt;Please check the previous &lt;a href=&quot;/2017/12/08/gre-toefl-preparation.html&quot;&gt;guide&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 08 Dec 2017 01:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/12/08/gre-toefl-preparation-2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/08/gre-toefl-preparation-2.html</guid>
+        
+        <category>gre</category>
+        
+        <category>toefl</category>
+        
+        <category>grad</category>
+        
+        <category>ms</category>
+        
+        <category>phd</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>GRE and TOEFL Preparation</title>
+        <description>&lt;p&gt;I recently gave the GRE and TOEFL exams in preparation for MS / PhD applications. While there exist several excellent resources to help you prepare (&lt;a href=&quot;https://magoosh.com/&quot;&gt;Magoosh&lt;/a&gt;, &lt;a href=&quot;https://www.greenlighttestprep.com/&quot;&gt;GreenlightTestPrep&lt;/a&gt;, &lt;a href=&quot;https://www.princetonreview.com/&quot;&gt;Princeton Review&lt;/a&gt;, &lt;a href=&quot;https://www.manhattanprep.com/gre/&quot;&gt;Manhattan&lt;/a&gt;), I thought it would be useful to share my personal experience with both tests. I might write a blog on grad school admission in the future (of course, conditioned on the admits I get!)&lt;/p&gt;
+
+&lt;p&gt;This guide will focus on preparation for GRE, while the next &lt;a href=&quot;/2017/12/08/gre-toefl-preparation-2.html&quot;&gt;guide&lt;/a&gt; will focus on TOEFL.&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;GRE and TOEFL are necessary exams for most graduate college applications abroad. GRE is a test of basic quantitive skills, verbal skills (primarily vocabulary, comprehension and inference) and essay writing. Most engineering students find the quantitive section really easy, but struggle with verbal and essay writing. TOEFL (iBT - internet Based Test) is a simple test of reading, writing, listening and speaking skills. TOEFL is generally a lot easier than GRE. People trained in an english-medium school or college generally sail through TOEFL without much preparation.&lt;/p&gt;
+
+&lt;h2 id=&quot;gre---graduate-record-exam&quot;&gt;GRE - Graduate Record Exam&lt;/h2&gt;
+
+&lt;p&gt;The GRE is scored out of 340 marks - 170 marks quant, 170 marks verbal. Additionally, your essay writing skills are manually evaluated out of 6 marks. For engineering graduate programs, a score of 325+ is considered &lt;em&gt;safe&lt;/em&gt;, with close to full marks in quant. In essay writing, a score of 4+ is considered &lt;em&gt;safe&lt;/em&gt;. How much does your GRE score matter? This varies a lot across universities, but popular opinion (and several admission guides like &lt;a href=&quot;http://www.pgbovine.net/grad-school-app-tips.htm&quot;&gt;Philip Guo’s&lt;/a&gt; and &lt;a href=&quot;https://www.cs.cmu.edu/~harchol/gradschooltalk.pdf&quot;&gt;Mor Harchol-Balter’s&lt;/a&gt;) says it’s just used as a threshold in higher ranked universities.&lt;/p&gt;
+
+&lt;p&gt;Additionally, a few streams (like Physics) might need a Subject GRE. This is not needed for Computer Science or Electrical Engineering programs.&lt;/p&gt;
+
+&lt;h3 id=&quot;choosing-a-date&quot;&gt;Choosing a Date&lt;/h3&gt;
+
+&lt;p&gt;I gave my GRE exam on 28th August, 2017 (for reference, my graduate applications were due in December 2017), and registered for it on 27th June, 2017. June to October are rush-hours, and it’s often hard to get weekend slots. Try to book 3-4 months in advanced. Payment require credit card (keep one handy, it is needed for graduate applications too), and the cost is a whopping 205$!&lt;/p&gt;
+
+&lt;h3 id=&quot;gre-preparation&quot;&gt;GRE Preparation&lt;/h3&gt;
+
+&lt;p&gt;I tried to study for GRE during my summer internship, but couldn’t do much beyond understanding the exam pattern. I started off with &lt;a href=&quot;https://drive.google.com/open?id=0B36C1JLEtF-7d3c1VUppWVFIUGs&quot;&gt;these&lt;/a&gt; Magoosh / GreenlightTestPrep videos (download them quickly before they are taken off!). I recommend fully understanding the different question types and exam pattern before venturing into hardcore preparation. I resumed my GRE preparation between 24th and 30th July, and finally 5th August to 27th August (examination day). I would have loved to prepare for 1-2 weeks more, but I am happy with the final outcome.&lt;/p&gt;
+
+&lt;h4 id=&quot;preparation-material&quot;&gt;Preparation Material&lt;/h4&gt;
+
+&lt;p&gt;I used four books in all, the official ETS material and Barron’s books. Additionally, I used the two free online PowerPrep tests (everyone gets them during registration). If you are up for a challenge, I recommend the Manhattan verbal books. Besides this, I saw most of the &lt;a href=&quot;https://drive.google.com/open?id=0B36C1JLEtF-7d3c1VUppWVFIUGs&quot;&gt;Magoosh videos&lt;/a&gt; linked above.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/gre-1.png&quot; height=&quot;233&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/gre-2.jpg&quot; height=&quot;233&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/gre-3.jpg&quot; height=&quot;233&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/gre-4.jpg&quot; height=&quot;233&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;diagnostic-test&quot;&gt;Diagnostic Test&lt;/h4&gt;
+
+&lt;p&gt;I started my preparation with a diagnostic test (the one in Barron’s), a zero-preparation evaluation of where you stand. I would not recommend using the online PowerPrep tests as diagnostic, since they are full-length tests and close replicas to the actual GRE exam. The diagnostic test will give you a good idea about whether you need any preparation for the quant sections, and your weaknesses in the verbal section. In my case, the only errors in the quant section were due to sheer negligence, so I decided to focus all my preparation to verbal / essay writing.&lt;/p&gt;
+
+&lt;h4 id=&quot;verbal-preparation&quot;&gt;Verbal Preparation&lt;/h4&gt;
+
+&lt;p&gt;The videos I linked above are good places to get started. They walk you through basic problem solving techniques and vocabulary building ideas. Verbal preparation needs two skills - &lt;strong&gt;quick inference&lt;/strong&gt; and &lt;strong&gt;excellent vocabulary&lt;/strong&gt;. Both skills are necessary to get a good verbal score.&lt;/p&gt;
+
+&lt;p&gt;If you are an avid reader (not textbooks!), your inference skills would be good. Unfortunately, GRE loves complicated sentences (quite unlike what we speak or type normally). Speed is critical in GRE, and many questions are non-trivial, often with ambiguous options at first glance. The best strategy here is &lt;strong&gt;PRACTICE&lt;/strong&gt; and &lt;strong&gt;READING&lt;/strong&gt;. Practice a lot of GRE-style questions. I personally practiced ALL the verbal questions from the first, second and fourth book (pictured above), and a few from &lt;em&gt;“Essential Words for GRE”&lt;/em&gt;. The actual questions in GRE are very close to the questions in the first two books, so those are essentials.&lt;/p&gt;
+
+&lt;p&gt;To improve speed in comprehension questions, the Magoosh videos give you some great tips and tricks. Finally, I cannot stress enough on the importance of practice under a time limit. I found it significantly harder, and I was often forced to mark answers which I wasn’t sure of.&lt;/p&gt;
+
+&lt;p&gt;I also recommend reading good novels during your preparation. It’s relaxing, and helps improve both inference and vocabulary. I read one book close to the exam (&lt;a href=&quot;https://www.amazon.in/Big-Bang-Simon-Singh/dp/0007152523?tag=googinhydr18418-21&quot;&gt;Big Bang&lt;/a&gt;). Another advice I heard was temporary avoidance of instant messenger. I think this is useful advice, since we often use short and simple sentences in online chat.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Vocabulary Building&lt;/strong&gt; - Be prepared for a lot of rote-learning. While word meanings aren’t tested directly, uncommon words are often used in questions, comprehension passages and MCQ options. There are roughly 3500 difficult words which GRE can potentially use. The &lt;em&gt;“Essential Words for GRE”&lt;/em&gt; provides exercises for the 800 most frequent words, and provides a list of the 300 most frequent words. Your goal should be to &lt;strong&gt;master&lt;/strong&gt; most of the 800 words atleast. Here “&lt;strong&gt;master&lt;/strong&gt;” refers to a solid understanding of the word’s meaning and usage.&lt;/p&gt;
+
+&lt;p&gt;I adopted a somewhat unusual approach to learning GRE words. I maintained a &lt;a href=&quot;https://docs.google.com/spreadsheets/d/1JfbMYhm45I7sySOcin0SjkJpBlymmwnFNquFCqYbhAc/edit?usp=sharing&quot;&gt;list&lt;/a&gt; of all unusual words I encountered during verbal practice (Sheet 1 contains my original list, Sheet 2 was added by a friend). Most definitions and sample sentences can be obtained from &lt;a href=&quot;https://en.wikipedia.org/wiki/Google_Dictionary&quot;&gt;Google Dictionary&lt;/a&gt; or &lt;a href=&quot;https://www.wordnik.com/&quot;&gt;wordnik&lt;/a&gt;. I installed a Chrome &lt;a href=&quot;https://chrome.google.com/webstore/detail/magoosh-vocabulary/oooelhhaglnggehlocjjmgngfknfclak&quot;&gt;extension&lt;/a&gt;, and kept updating my list whenever I found a new word here.&lt;/p&gt;
+
+&lt;p&gt;It’s a good idea not to learn words in a particular fixed order, to avoid developing spatial memory cues. I used a simple shuffler &lt;a href=&quot;https://gist.github.com/martiansideofthemoon/2af86c4424d35bc9495a5bda468e8c32&quot;&gt;script&lt;/a&gt;, and never did more than 100 words in one session. Recollecting words learnt more than 2-3 days ago is hard, especially if you have just seen its usage during formal GRE preparation. One useful exercise is talking to your friends using GRE english. Think of creative ways to use your newly learnt words! Another useful trick is reading novels or english newspapers like &lt;a href=&quot;https://www.nytimes.com/&quot;&gt;The New York Times&lt;/a&gt;. In retrospection, many GRE words aren’t so uncommon in literature! We often infer their meaning from context, but never actually look for the exact definition. However, now that you are actively looking to improve your vocabulary, you WILL notice these words while reading. The &lt;a href=&quot;https://www.amazon.in/Big-Bang-Simon-Singh/dp/0007152523?tag=googinhydr18418-21&quot;&gt;Big Bang&lt;/a&gt; book alone contained over 100 words listed in my &lt;a href=&quot;https://docs.google.com/spreadsheets/d/1JfbMYhm45I7sySOcin0SjkJpBlymmwnFNquFCqYbhAc/edit?usp=sharing&quot;&gt;sheet&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;While my approach helped me learn words effectively, I believe it was a bit disorganized (as compared to following a list of frequent words). Towards the end, I only had about 450 words in my list. I added about 150 words from the “300 Most Frequent Words” in Barron’s &lt;em&gt;“Essential Words for GRE”&lt;/em&gt;. In my final GRE exam, I knew the definition of roughly two-third difficult words.&lt;/p&gt;
+
+&lt;p&gt;If you have the time, I strongly recommend solving exercises from &lt;em&gt;“Essential Words for GRE”&lt;/em&gt;, and adding the toughest words to your personal list (which also contains words encountered in other verbal tests), in addition to the tricks mentioned above. It’s a good idea to master ~1000-1500 words before your GRE exam.&lt;/p&gt;
+
+&lt;h4 id=&quot;quant-preparation&quot;&gt;Quant Preparation&lt;/h4&gt;
+
+&lt;p&gt;If you sailed through the diagnostic test, don’t bother. Try to solve a few timed exercises, aiming to minimize negligent mistakes. You should aim at checking all your questions once, and 10 minutes should be sufficient for this exercise. A good idea to speed up checking is &lt;em&gt;organized rough-work&lt;/em&gt;. Since you are given unlimited rough paper in GRE, try to organize rough work similar to an answer booklet, so that you can quickly check your steps when you are reviewing answers towards the end. Avoid using actual calculators, the basic Windows Desktop calculator is the closest to the actual exam’s calculator. I solved a few exercises from the first book, and finally solved quant questions in the practice test.&lt;/p&gt;
+
+&lt;h4 id=&quot;essay-preparation&quot;&gt;Essay Preparation&lt;/h4&gt;
+
+&lt;p&gt;Many candidates generally ignore the AWA section (essay writing), and entirely focus their efforts on the verbal section. This is NOT a good idea, UNLESS you write essays or blogs regularly. High AWA scores will help you a lot more for graduate admission as compared to high verbal scores (&lt;a href=&quot;https://www.quora.com/How-competitive-is-admission-to-the-masters-program-at-Carnegie-Mellons-Language-Technologies-Institute-for-applicants-who-dont-have-an-undergraduate-degree-in-computer-science-but-do-have-an-undergraduate-degree-in-linguistics-with-some-computer-science-coursework/answer/Alex-Rudnicky?srid=iiLB&quot;&gt;LTI admission guideline&lt;/a&gt;, the Georgia Tech application explicitly asked for the AWA score in supplementary information). This is because good writing skills are essential for success as a graduate student.&lt;/p&gt;
+
+&lt;p&gt;There are two essay questions per exam, the Issue Task and Argumentative Task. All possible topics are listed online! (&lt;a href=&quot;https://www.ets.org/gre/revised_general/prepare/analytical_writing/argument/pool&quot;&gt;argumentative pool&lt;/a&gt;, &lt;a href=&quot;https://www.ets.org/gre/revised_general/prepare/analytical_writing/issue/pool&quot;&gt;issue pool&lt;/a&gt;) The argumentative essay is generally a lot easier, requiring more logical than creative thinking. The issue essay can be tougher, especially if you are out of practice.&lt;/p&gt;
+
+&lt;p&gt;I recommend thoroughly studying the essay sections of the first and fourth book. Your first five minutes are critical if you hope to write a good 400-500 word essay in just 30 minutes. I suggest practising a lot, writing down atleast 4-5 essays of each type &lt;em&gt;with the time constraint&lt;/em&gt;. Additionally, you can practice building your essay sketches in five minutes for atleast 10-15 issue type tasks. Don’t try to memorize 6-point essays for all topics in the issue pool. Instead, you can try to learn some standard arguments used for each &lt;em&gt;topic-type&lt;/em&gt; (education, government, environment etc.). Essay writing for GRE has to come naturally, via practice. The best issue type essays cite a lot of supporting examples and hence it’s a good idea to review daily news.&lt;/p&gt;
+
+&lt;p&gt;Again, do NOT leave this for the last minute. Give it the same importance (and more, if writing is not your forte) as the verbal section.&lt;/p&gt;
+
+&lt;h4 id=&quot;practice-tests&quot;&gt;Practice Tests&lt;/h4&gt;
+
+&lt;p&gt;The two PowerPrep tests provided by ETS while registering are the closest to the actual examination. Solve them dilligently, do not cheat in any form. When you choose to give them are upto you. I personally gave my first exam five days before GRE, and my second exam two days before GRE. The score you receive in these tests are a good indication of the final score you will achieve. (I achieved 160V, 170Q in Test #1, 158V, 170Q in Test #2).&lt;/p&gt;
+
+&lt;p&gt;For Linux users, you don’t need to change your operating system while giving these tests (the website won’t allow you by default). The website only checks the &lt;code class=&quot;highlighter-rouge&quot;&gt;User-Agent&lt;/code&gt; field in HTTP requests, so simply spoof your browser information using this &lt;a href=&quot;https://chrome.google.com/webstore/detail/user-agent-switcher-for-g/ffhkkpnppgnfaobgihpdblnhmmbodake?hl=en&quot;&gt;extension&lt;/a&gt;. I faced no issues during my test, even though my browser/OS was not “offically compatible”.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANT&lt;/strong&gt; - Do not attempt the un-timed PowerPrep test provided on the website. Its questions are identical to the timed Test #1. I almost made this mistake.&lt;/p&gt;
+
+&lt;h3 id=&quot;exam-day-preparation&quot;&gt;Exam Day Preparation&lt;/h3&gt;
+
+&lt;p&gt;Make sure you carry your passport and snacks for the 10 minute break. Be sure you completely understand the exam pattern. Water is NOT ALLOWED in the exam room. The 10 minute break is the only time you will get to use the restroom, eat, or drink something. Carrying a jacket is ALLOWED, and a good idea since the exam hall is cold. The actual GRE exam has an extra experimental section, and takes about four hours in total. If you are well prepared, it should be like any other exam.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANT&lt;/strong&gt; - Make sure you have decided a list of 4 colleges to send your scores to. Do check whether the program requires GRE scores at all (MIT EECS and UIUC CS doesn’t, for instance). You will waste additional 108$ if you do not select 4 colleges immediately after your exam.&lt;/p&gt;
+
+&lt;p&gt;I finally scored 161 in Verbal, 170 in Quant and 5.5 in AWA. This was close to my expectation after the exam and I am pretty happy with these scores! Most of my friends got scores within 2 marks of their practice test scores.&lt;/p&gt;
+
+&lt;h2 id=&quot;toefl---test-of-english-as-a-foreign-language&quot;&gt;TOEFL - Test of English as a Foreign Language&lt;/h2&gt;
+
+&lt;p&gt;Please check the next &lt;a href=&quot;/2017/12/08/gre-toefl-preparation-2.html&quot;&gt;guide&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 08 Dec 2017 00:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/12/08/gre-toefl-preparation.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/12/08/gre-toefl-preparation.html</guid>
+        
+        <category>gre</category>
+        
+        <category>toefl</category>
+        
+        <category>grad</category>
+        
+        <category>ms</category>
+        
+        <category>phd</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Versova Cycling Trip</title>
+        <description>&lt;p&gt;I’ve generally been pretty skeptical about cycling outside the IIT campus in Mumbai. It’s slow and dangerous due to the reckless Mumbai traffic. I’d made a few midnight trips to other parts of Powai last year, but never ventured any further. Nevertheless, our group (including &lt;a href=&quot;https://www.facebook.com/profile.php?id=100006442563676&quot;&gt;Abhin Shah&lt;/a&gt;, &lt;a href=&quot;https://www.facebook.com/karanchadha005&quot;&gt;Karan Chadha&lt;/a&gt;, &lt;a href=&quot;http://cheekujodhpur.github.io/&quot;&gt;Kumar Ayush&lt;/a&gt; and &lt;a href=&quot;https://sandeshkalantre.github.io/&quot;&gt;Sandesh Kalantre&lt;/a&gt;) planned a 5:30AM cycling trip to &lt;a href=&quot;https://en.wikipedia.org/wiki/Versova,_Mumbai#Versova_beach&quot;&gt;Versova Beach&lt;/a&gt; on Sunday, 3rd September. A 35KM round-trip, I was really looking forward to this after a two month break from cycling (in Chicago).&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, the weather Gods were relentless. Despite relatively clear skies after the recent &lt;a href=&quot;https://en.wikipedia.org/wiki/2017_Mumbai_flood&quot;&gt;floods&lt;/a&gt;, there was heavy downpour early in the morning. It was looking like another gloomy day until this tweet came along,&lt;/p&gt;
+
+&lt;center&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;About to take a wrong decision with &lt;a href=&quot;https://twitter.com/sandeshkalantre&quot;&gt;@sandeshkalantre&lt;/a&gt; &lt;a href=&quot;https://twitter.com/kalpeshk2011&quot;&gt;@kalpeshk2011&lt;/a&gt;&lt;/p&gt;&amp;mdash; Kumar Ayush (@kumarayush4ever) &lt;a href=&quot;https://twitter.com/kumarayush4ever/status/904195407177170944&quot;&gt;September 3, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/center&gt;
+
+&lt;p&gt;Our captains had predicted a memorable day, and decided we must get going in the heavy rain. It was 09:50AM, and boy, what a classic case of prescience it turned out to be.&lt;/p&gt;
+
+&lt;h2 id=&quot;cycling-in-mumbai&quot;&gt;Cycling in Mumbai&lt;/h2&gt;
+
+&lt;p&gt;The onward journey was scary. As Mumbai does not have significant cycling tracks &lt;a href=&quot;http://timesofindia.indiatimes.com/city/mumbai/mumbai-ready-for-a-cycle-track-from-marine-drive-to-worli/articleshow/60408985.cms&quot;&gt;yet&lt;/a&gt;, cyclists generally use service roads or stick to the leftmost parts of the shared vehicle roads. Unfortunately, the night’s downpour had filled the sides with puddles and potholes. There was a constant drizzle with occasional heavy downpour. The worst part was the traffic, especially due to the late morning hours and wrong route choices (most of our onward journey was on &lt;a href=&quot;https://en.wikipedia.org/wiki/Line_1_(Mumbai_Metro)&quot;&gt;Metro Line 1&lt;/a&gt;). Slowly and steadily, and after a couple of incorrect turns, we finally reached Versova Beach - a sight to soothe sour eyes!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/cycling.jpg&quot; alt=&quot;cycling&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/versova-map.png&quot; alt=&quot;map&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;versova-beach--return&quot;&gt;Versova Beach &amp;amp; Return&lt;/h2&gt;
+&lt;p&gt;The beach was relatively clean and empty, thanks to the “&lt;a href=&quot;https://thewire.in/152999/mumbais-versova-shore-transformed-due-worlds-largest-beach-cleanup-locals/&quot;&gt;Versova Clean-Up&lt;/a&gt;”. The sun was peeping through the clouds. In the distant south, a faint image of the majestic &lt;a href=&quot;https://en.wikipedia.org/wiki/Bandra%E2%80%93Worli_Sea_Link&quot;&gt;Bandra-Worli Sea Link&lt;/a&gt; could be discerned through the smog. We did what any child would do - took photographs / selfies, built a sand castle, destroyed it, collected clean shells and waded through the waves. After a sumptuous lunch of Pizza, Oreo Milkshake and Tea at &lt;a href=&quot;https://www.zomato.com/mumbai/tea-villa-cafe-versova&quot;&gt;Tea Villa Cafe&lt;/a&gt;, we disembarked on our return journey. The return journey was relatively faster, (ignoring the cycle breakdowns) with less traffic, dry roads and a more optimal route. After a tortuous ride, we got back home at 4:45PM!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/beach.jpg&quot; alt=&quot;beach&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bikes.jpg&quot; alt=&quot;bikes&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;experience--stats&quot;&gt;Experience &amp;amp; Stats&lt;/h2&gt;
+&lt;p&gt;All activities were GPS-tracked using &lt;a href=&quot;https://runkeeper.com&quot;&gt;Runkeeper&lt;/a&gt;. We paused only at Versova Beach, during lunch and at one of the cycle breakdowns.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stats1.png&quot; alt=&quot;stats1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stats-2.png&quot; alt=&quot;stats2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All in all, it was a great cycling experience. We clocked a low speed, owing to the long cycle breakdown stops, traffic and Google Map checks. Nevertheless, it was surely the best weekend thus far this semester! This trip reminds me of weekends during the summer internship, where I’d explicitly allot time for non-work activities after weeklong planning. Alas, these plans rarely materialize back home in Mumbai. But whenever they do, we do crazy things, right from visiting &lt;a href=&quot;https://en.wikipedia.org/wiki/Jijamata_Udyaan&quot;&gt;Byculla Zoo&lt;/a&gt; (No, seriously DON’T go there) to biking across town in a rainstorm. So I tweet back to Ayush,&lt;/p&gt;
+
+&lt;center&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Last weekend&amp;#39;s ride wasn&amp;#39;t such a bad decision after all! &lt;a href=&quot;https://twitter.com/kumarayush4ever&quot;&gt;@kumarayush4ever&lt;/a&gt; &lt;a href=&quot;https://twitter.com/sandeshkalantre&quot;&gt;@sandeshkalantre&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/cycling?src=hash&quot;&gt;#cycling&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/biking?src=hash&quot;&gt;#biking&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/Mumbai?src=hash&quot;&gt;#Mumbai&lt;/a&gt; &lt;a href=&quot;https://t.co/8aJImQClLE&quot;&gt;https://t.co/8aJImQClLE&lt;/a&gt;&lt;/p&gt;&amp;mdash; Kalpesh Krishna (@kalpeshk2011) &lt;a href=&quot;https://twitter.com/kalpeshk2011/status/907730730939273223&quot;&gt;September 12, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/center&gt;
+
+</description>
+        <pubDate>Wed, 13 Sep 2017 00:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/09/13/versova-cycling-trip.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/09/13/versova-cycling-trip.html</guid>
+        
+        <category>cycling</category>
+        
+        <category>versova</category>
+        
+        <category>mumbai</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Frustratingly Short Attention Spans (ICLR 2017) - A Summary</title>
+        <description>&lt;p&gt;Through this blogpost I attempt to summarise the key ideas highlighted in an &lt;a href=&quot;http://www.iclr.cc/doku.php?id=ICLR2017:main&amp;amp;redirect=1&quot;&gt;ICLR-2017&lt;/a&gt; accepted paper, Frustratingly Short Attention Spans in Neural Language Modelling, (read it &lt;a href=&quot;https://arxiv.org/abs/1702.04521&quot;&gt;here&lt;/a&gt;), by &lt;a href=&quot;https://www.linkedin.com/in/michaldaniluk91/?ppe=1&quot;&gt;Daniluk&lt;/a&gt; et al, of the University College London. You can read the official ICLR reviews on &lt;a href=&quot;https://openreview.net/forum?id=ByIAPUcee&quot;&gt;OpenReview&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my opinion, this is a very well written paper with strongly motivated ideas and strong results. The original manuscript explains the ideas well, and I hope that this blogpost does justice to the paper!&lt;/p&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;This paper is primarily motivated by the shortcomings of the traditional attention mechanism proposed in the &lt;a href=&quot;https://arxiv.org/pdf/1409.0473.pdf&quot;&gt;Bahdanau et al.&lt;/a&gt; ICLR-2015 paper. It tries to improve the traditional attention mechanism with a couple of more meaningful models in the context of &lt;a href=&quot;https://en.wikipedia.org/wiki/Language_model&quot;&gt;language modelling&lt;/a&gt;.
+While implementing their new architecture, the authors notice a strange trend in the lengths of the attention spans (and hence the title) which motivates them to build a simple novel architecture, the “N-Gram Recurrent Neural Network”, which achieves comparable performance to the more complicated attention models.&lt;/p&gt;
+
+&lt;p&gt;Hence, this paper ends by questioning the usefulness of complicated attention models, and tries to highlight that today’s state-of-the-art architectures suffer from a long term dependency issue, especially in language modelling.&lt;/p&gt;
+
+&lt;h2 id=&quot;traditional-attention-models&quot;&gt;Traditional Attention Models&lt;/h2&gt;
+
+&lt;p&gt;The main issue with traditional attention is evident from the equations, they try to squeeze three pieces of information in a single vector. (If you haven’t heard about attention models, you can head over to colah’s &lt;a href=&quot;http://distill.pub/2016/augmented-rnns/&quot;&gt;blog&lt;/a&gt;). As depicted in the figure below, the paper assumes a fixed length attention span.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/model1.png&quot; alt=&quot;model1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Notation&lt;/strong&gt; - $x_t$ depicts input vectors, $c_t$ depicts the LSTM hidden vector, $h_t$ depicts the LSTM output vectors, $r$ contains the attention information and $h^*$ represents the final output vector (after attending to previous $h$ units).&lt;/p&gt;
+
+&lt;p&gt;Pay close attention to $\color{blue}{h_i}$ in the following equations,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align} \textbf{M}_t &amp; = \tanh(\textbf{W}^Y[\color{blue}{h_{t-L}} ... \color{blue}{h_{t-1}}] + \textbf{W}^h[\color{blue}{h_t} ... \color{blue}{h_t}]) \\ \pmb{\alpha}_t &amp; = softmax(\textbf{w}^T\textbf{M}_t) \\ \textbf{r}_t &amp; = [\color{blue}{h_{t-L}} ... \color{blue}{h_{t-1}}]\pmb{\alpha}^T \\ \textbf{h}^{*}_t &amp; = \tanh(\textbf{W}^r\textbf{r}_t + \textbf{W}^x\color{blue}{h_t}) \end{align} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;In other words,&lt;br /&gt;
+&lt;em&gt;(Compares each $h_{t-i}$ with $h_t$, using weights $\textbf{W}^{Y}$ and $\textbf{W}^h$)&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;(Compute attention weights according to previous comparison)&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;(Weight $h_{t-i}$ according to computed attention weights)&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;(Compute final vector using attention information and current output vector)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Quite clearly, the output vectors $\color{blue}{h_i}$ are being used in a three-fold role -&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;Keys&lt;/strong&gt;&lt;/span&gt; for comparison while computing attention vector.&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color:blue&quot;&gt;&lt;strong&gt;Values&lt;/strong&gt;&lt;/span&gt; for computing $\textbf{r}_t$ from attention weights.&lt;/li&gt;
+  &lt;li&gt;Encode distribution for &lt;span style=&quot;color:green&quot;&gt;&lt;strong&gt;prediction&lt;/strong&gt;&lt;/span&gt; of next token.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This motivates the &lt;em&gt;key-value&lt;/em&gt; and the &lt;em&gt;key-value-prediction&lt;/em&gt; model, which attempts to use different vectors (all output vectors of the LSTM) for each of the three roles.&lt;/p&gt;
+
+&lt;h2 id=&quot;new-attention-models&quot;&gt;New Attention Models&lt;/h2&gt;
+
+&lt;p&gt;As depicted in Figure 1(b) and 1(c) of the &lt;a href=&quot;https://arxiv.org/abs/1702.04521&quot;&gt;paper&lt;/a&gt;, the LSTM produces multiple output vectors (or equivalently, divides $h_t$ into two or more parts). More concretely,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;span style=&quot;color:red&quot;&gt;Key&lt;/span&gt;-&lt;span style=&quot;color:blue&quot;&gt;Value&lt;/span&gt; Attention&lt;/strong&gt; - A different vector is used to compute the attention vector. However, the same vector is still used for the values and predictions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align} \textbf{M}_t &amp; = \tanh(\textbf{W}^Y[\color{red}{k_{t-L}} ... \color{red}{k_{t-1}}] + \textbf{W}^h[\color{red}{k_t} ... \color{red}{k_t}]) \\ \pmb{\alpha}_t &amp; = softmax(\textbf{w}^T\textbf{M}_t) \\ \textbf{r}_t &amp; = [\color{blue}{v_{t-L}} ... \color{blue}{v_{t-1}}]\pmb{\alpha}^T \\ \textbf{h}^{*}_t &amp; = \tanh(\textbf{W}^r\textbf{r}_t + \textbf{W}^x\color{blue}{v_t}) \end{align} %]]&gt;&lt;/script&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;span style=&quot;color:red&quot;&gt;Key&lt;/span&gt;-&lt;span style=&quot;color:blue&quot;&gt;Value&lt;/span&gt;-&lt;span style=&quot;color:green&quot;&gt;Prediction&lt;/span&gt; Attention&lt;/strong&gt; - A different vector is used for each of the three roles described above. More specifically,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align} \textbf{M}_t &amp; = \tanh(\textbf{W}^Y[\color{red}{k_{t-L}} ... \color{red}{k_{t-1}}] + \textbf{W}^h[\color{red}{k_t} ... \color{red}{k_t}]) \\ \pmb{\alpha}_t &amp; = softmax(\textbf{w}^T\textbf{M}_t) \\ \textbf{r}_t &amp; = [\color{blue}{v_{t-L}} ... \color{blue}{v_{t-1}}]\pmb{\alpha}^T \\ \textbf{h}^{*}_t &amp; = \tanh(\textbf{W}^r\textbf{r}_t + \textbf{W}^x\color{green}{p_t}) \end{align} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;The different hidden vector dimensions were chosen to keep &lt;strong&gt;identical number of trainable variables&lt;/strong&gt;.  As expected, in nearly all the experiments there is an increasingly better performance from &lt;em&gt;traditional attention&lt;/em&gt;, to &lt;em&gt;key-value attention&lt;/em&gt;, to &lt;em&gt;key-value-prediction attention&lt;/em&gt;. However, the attention visualizations of the model showed a different story.&lt;/p&gt;
+
+&lt;h2 id=&quot;n-gram-recurrent-neural-networks&quot;&gt;N-Gram Recurrent Neural Networks&lt;/h2&gt;
+
+&lt;p&gt;Figure 3(a) and Figure 3(b) of the paper show an interesting trend, and it seems like most of the attention is focussed on the previous 2-5 outputs only. The results of Figure 2(a) show similar perplexities across different attention sizes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/model2.png&quot; alt=&quot;model2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This finding motivates the &lt;em&gt;$N$-Gram RNN&lt;/em&gt;, a simple structure which &lt;strong&gt;always&lt;/strong&gt; attends over the previous $N-1$ outputs. This is similar to $N$-gram language models, (&lt;a href=&quot;https://dash.harvard.edu/bitstream/handle/1/25104739/tr-10-98.pdf?sequence=1&quot;&gt;Chen and Goodman&lt;/a&gt;), which use the previous $N-1$ tokens (a &lt;em&gt;context&lt;/em&gt;) to predict the next token. More specifically,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/model3.png&quot; alt=&quot;model3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The LSTM outputs $N-1$ vectors (or equivalently divides $\color{blue}{h_{t}}$ into $N-1$ parts, each of which encode information to help predict the $i^{th}$ (from $1$ to $N-1$) token of the future. It’s a very simple neural network, and the four equations in each of the above models are replaced by,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\textbf{h}^{*}_{t} = \tanh(\textbf{W}^{N}[\color{blue}{h_{t}^{1}}...\color{red}{h_{t-i+1}^{i}} ... \color{green}{h_{t-N+2}^{N-1} }]^T), i \in \{1, 2, ... N-1\}&lt;/script&gt;
+
+&lt;p&gt;Quite strangely, &lt;em&gt;4-gram networks&lt;/em&gt; perform nearly as well as &lt;em&gt;key-value-predict&lt;/em&gt; models (see Figure 2(c)). Of course, this might be very specific to language modelling, but perhaps attention needs a re-thinking?&lt;/p&gt;
+
+&lt;h2 id=&quot;openreview-summaries&quot;&gt;OpenReview Summaries&lt;/h2&gt;
+&lt;p&gt;This paper received a 7/10 in ICLR-2017 and was accepted for a poster presentation. Here were the major highlights of the &lt;a href=&quot;https://openreview.net/forum?id=ByIAPUcee&quot;&gt;reviews&lt;/a&gt; -&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;There was some concern about the choice of hyperparameters. The &lt;em&gt;key-value&lt;/em&gt; and &lt;em&gt;key-value-predict&lt;/em&gt; models were attending over much larger vectors than the traditional models. However, the total number of weights had been adjusted to be uniform across models. There was also some concern over the choice of an attention span of just 15 and an unrolling of just 20 timesteps. The authors do report better results on using &lt;a href=&quot;https://en.wikipedia.org/wiki/Backpropagation_through_time&quot;&gt;BPTT&lt;/a&gt; through 35 timesteps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There was a general consensus that an impactful corpus (the Wikipedia corpus) for long-term language modelling had been released, since several dependencies were separated by dozens of timesteps, making it harder for attention based models to capture them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There was a general consensus that a very thorough experimentation was conducted. The paper was well explained and they liked the idea of the $N$-Gram RNN baseline. The paper raises important questions about attention in neural networks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;clarifications-from-authors&quot;&gt;Clarifications from Authors&lt;/h2&gt;
+&lt;p&gt;I contacted the authors to clarify a few questions raised during the reading group meeting at &lt;a href=&quot;http://ttic.uchicago.edu/~klivescu/SLATTIC/&quot;&gt;SLATTIC&lt;/a&gt;. Here’s a brief summary of their reply,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;BPTT&lt;/strong&gt; - There was a concern about the exact mechanism used for Back Propagation Through Time, since the unrolling was done only through a fixed number of timesteps. The input tensors have been broken into chunks of size &lt;code class=&quot;highlighter-rouge&quot;&gt;batch * bptt_steps * embedding_size&lt;/code&gt;, which is used for all gradient calculations in that timestep. After a training step, the final LSTM hidden vectors produced are passed over as the initial hidden vectors for the next training step. (Unless there is a article break). Except this hidden vector, no information about the previous chunks are used during training.
+Higher &lt;code class=&quot;highlighter-rouge&quot;&gt;bptt_steps&lt;/code&gt; values were tried, and produced marginal improvement in results, but the GPU memory constraints limited their experimentation.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Short Attention Spans&lt;/strong&gt; - Figure 2(a) is a surprising set of results. In the author’s words, &lt;em&gt;“We found that very surprising too. One criticism of our work is that the corpora we trained on might not really need long-range dependencies to learn a good language model – or in other words, cases where such long-range dependencies are really needed are so rare that they don’t provide enough training signal to actually learn a sensible attention mechanism. Check out this thread for the discussion - &lt;a href=&quot;https://twitter.com/tallinzen/status/832174893152219136&quot;&gt;Twitter&lt;/a&gt;.&lt;/em&gt;”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;personal-opinions&quot;&gt;Personal Opinions&lt;/h2&gt;
+&lt;p&gt;I personally agree with the comments on OpenReview and the conclusions drawn by the author, and they have done a great job with the explanations in the paper. I’m a bit skeptical about Figure 2(a), since I did not expect such a &lt;em&gt;small&lt;/em&gt; variation across attention sizes. A window size of 1 is doing nearly as well as sizes of 5, 10 and 15, which puts a little doubt in my mind about the system. Nevertheless, I think this is great research work since,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Raises Important Questions&lt;/strong&gt; - Instead of trying to beat state-of-the-art, this paper raises an important question - Long term dependencies are far from solved. I think this is a wake-up call for the larger companies that simpler / smarter architectures need to be discovered, and larger / deeper networks aren’t always the solution. The future work sounds really promising, and it would be great to see architectures that force models to ignore local context.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Great / Fair Comparisons&lt;/strong&gt; - I think a good amount of care has been taken to ensure fair comparison between models. The rebuttal on &lt;a href=&quot;https://openreview.net/forum?id=ByIAPUcee&quot;&gt;OpenReview&lt;/a&gt; supports this.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Simpler is Better&lt;/strong&gt; - Perhaps the part I liked best in this paper is the simplicity of their $N$-gram network idea. This is one of the first papers I’ve seen that tries to match its own model with a baseline model, raising crucial questions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 28 Jun 2017 10:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/06/28/short-attention-iclr-summary.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/28/short-attention-iclr-summary.html</guid>
+        
+        <category>internship</category>
+        
+        <category>ttic</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>UChicago - Insight Summer Blog</title>
+        <description>&lt;p&gt;I recently wrote a blog for &lt;a href=&quot;http://www.insightiitb.org/&quot;&gt;Insight&lt;/a&gt;, IIT Bombay’s student media body describing my summer internship experience in the first four weeks. It slightly overlaps with my &lt;a href=&quot;/2017/05/28/hello-uchicago.html&quot;&gt;previous post&lt;/a&gt;, but it also describes week 2, 3 and 4. I hope to write one or two more blogs about the internship experience!&lt;/p&gt;
+
+&lt;p&gt;You can find my summer blog &lt;a href=&quot;http://summerblog.insightiitb.org/ttic-the-university-of-chicago-kalpesh-krishna/&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 25 Jun 2017 10:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/06/25/uchicago-4-weeks.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/25/uchicago-4-weeks.html</guid>
+        
+        <category>internship</category>
+        
+        <category>ttic</category>
+        
+        <category>chicago</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Hello UChicago!</title>
+        <description>&lt;p&gt;It’s been a week at Chicago and I’m having a really unique experience here. As I mentioned in my &lt;a href=&quot;/2017/05/17/applying-for-j1.html&quot;&gt;previous post&lt;/a&gt;, I have been selected as a visiting researcher at the &lt;a href=&quot;http://ttic.edu&quot;&gt;Toyota Technological Institute at Chicago&lt;/a&gt;, a CS research institute located on the &lt;a href=&quot;http://uchicago.edu&quot;&gt;University of Chicago&lt;/a&gt; campus. Life is so different here, in both good and bad ways. I will be in Chicago for seven more weeks, working on encoders for automatic speech recognition tasks.&lt;/p&gt;
+
+&lt;h2 id=&quot;arrival&quot;&gt;Arrival&lt;/h2&gt;
+
+&lt;p&gt;I arrived on 21st May after a comfortable 16 hour Air India flight. The &lt;a href=&quot;http://www.flychicago.com/ohare/home/pages/default.aspx&quot;&gt;O’Hare Airport&lt;/a&gt; had a very small international arrival section, and I couldn’t find any SIM card or shuttle stores. I decided to go to UChicago by taxi (A 45km ride), which cost me whopping 61$! My friend, &lt;a href=&quot;https://www.linkedin.com/in/vishnu-nair-9393a34b/?ppe=1&quot;&gt;Vishnu Nair&lt;/a&gt;, an alumni of IIT Bombay showed me around the place and helped me get setup. It’s a really amazing campus, with ivy covered buildings, ancient architecture, huge gardens and the most stunning libraries I’ve ever seen. UChicago is world renowned for its programs in pure science, arts, mathematics and CS theory. There are no clear-cut engineering departments here, and most of the engineering is integrated with the sciences. I walked a lot on my first day and got myself a number of useful items such as a SIM card and public transport card. I opened up my bank account and got a UChicago identity card on the following day.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/uchicago-ivy.jpg&quot; alt=&quot;ivy&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/uchicago-park.jpg&quot; alt=&quot;park&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;first-work-day&quot;&gt;First Work Day&lt;/h2&gt;
+&lt;p&gt;I first visited TTIC on my second day (22nd May), for an HR orientation and a meeting with my advisors. TTIC is a small CS-oriented institute which is doing some amazing work in Machine Learning and CS Theory. After a short HR meeting, I finally met my advisors, &lt;a href=&quot;http://ttic.uchicago.edu/~llu/&quot;&gt;Liang Lu&lt;/a&gt;, &lt;a href=&quot;http://ttic.uchicago.edu/~kgimpel/&quot;&gt;Kevin Gimpel&lt;/a&gt; and &lt;a href=&quot;http://ttic.uchicago.edu/~klivescu&quot;&gt;Karen Livescu&lt;/a&gt;, all of whom are working on speech and language processing. Since I had some setup work remaining, we decided to push our meeting for the next day. I attended a talk by &lt;a href=&quot;http://cs.iit.edu/~culotta/&quot;&gt;Aron Culotta&lt;/a&gt; at TTIC the same day before finally heading out to finish my setup chores. By evening, I was given a computer (with a cool GPU) to work on, access to the TTIC computation clusters and met up with all the other awesome people working in the &lt;a href=&quot;http://ttic.uchicago.edu/~klivescu/SLATTIC/&quot;&gt;SLATTIC&lt;/a&gt; group at TTIC.&lt;/p&gt;
+
+&lt;p&gt;In the evening, I met my roommate &lt;a href=&quot;https://www.facebook.com/thearasuarun&quot;&gt;Arasu Arun&lt;/a&gt;, who is also working at TTIC this summer on CS theory. Thus began a unqiue week of adventures of living truly on my own!&lt;/p&gt;
+
+&lt;h2 id=&quot;living-alone&quot;&gt;Living Alone&lt;/h2&gt;
+&lt;p&gt;One of the highlights of this week has been the experience of living on my own. It’s the first time that I’ve stepped into the kitchen and managed to cook (and sometimes undercook) simple stuff. Arasu has never cooked earlier either, so it’s fun experimenting together in the kitchen. This has also required regular visits to the American grocery shops, weekly laundry, washing utensils and keeping the house clean.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-good-parts&quot;&gt;The Good Parts&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Research Atmosphere&lt;/strong&gt; - The environment at TTIC is absolutely amazing. The whole institute has just about 25 professors, 40-45 PhD students, 10 administrative staff and 15 interns, so it’s a really close knit group. There are reading groups, institute lectures, course lectures and group meetings every week, and I’ve spent most of my first week attending each of these research talks (I’ve attended roughly five in just 4 days!). While I find it hard to follow many of them (due to a limited ML background), it’s inspiring to see good ideas being extensively discussed.&lt;/p&gt;
+
+    &lt;p&gt;I generally have lunch with the other people in &lt;a href=&quot;http://ttic.uchicago.edu/~klivescu/SLATTIC/&quot;&gt;SLATTIC&lt;/a&gt;, so it’s fun to discuss ideas with them and get to know about their backgrounds. In a week, I already feel close to a lot of &lt;a href=&quot;http://ttic.uchicago.edu/~klivescu/SLATTIC/&quot;&gt;SLATTIC&lt;/a&gt; members.
+I have a cubicle and a whiteboard to myself along with a printer next door, so it’s pretty convenient for me to print research papers and immediately begin reading them in a printed format.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Computation Infrastructure&lt;/strong&gt; - While I’ve not used this extensively yet, the clusters are pretty good for research work. The IT director at TTIC has setup a good automated system to schedule jobs making research a lot faster. I really should start using it soon! The internet speed is the best I’ve seen so far, reaching close to a 1 Gbps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Libraries&lt;/strong&gt; - Like I mentioned earlier, the seven libraries / reading rooms on-campus are amazing buildings. I’ve heard they boast an extensive collection of books and an automated system to fetch them. In fact, I’m writing this blog sitting in the one pictured below!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/uchicago-lib.jpg&quot; alt=&quot;library&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-bad-parts&quot;&gt;The Bad Parts&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Crime in Chicago&lt;/strong&gt; - This is a serious issue, and every week a crime is reported in the campus despite extensive patrol by the UChicago Police Department. There are strict instructions to stay indoors after 8:00PM (VERY unlike IIT Bombay), since the night-time is supposed to be the most unsafe. As a result, I generally begin work quite early (at about 8:30AM) and never work after 6:00PM. The campus is a bit lonely in the more residential areas and you need to keep an eye while you move around.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Food&lt;/strong&gt; - I’ve not really enjoyed the food here (atleast so far, since I’ve been experimenting a lot). While the salads and fruits are good, I’ve not particularly enjoyed the non-veg food or some of the ready-to-eat food. It’s not super expensive (like in London), but perhaps 2-2.5 times the equivalent INR price. Meals are eaten a lot earlier in USA, and I’m generally eating my dinners at 7:00PM.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;General Fatigue&lt;/strong&gt; - Unlike India, I seem to be getting a lot more tired here, despite the additional hours of sleep. Perhaps this is typical of a grad-school sort of life, where it’s a lot more tiring to work on the same problem all day, or it might just be due to the weather / long walks. I sometimes feel more inefficient here when compared to IIT Bombay, where I end up working 24*7 on some weeks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mixed-feelings&quot;&gt;Mixed Feelings&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Weather&lt;/strong&gt; - The weather this week has been really erratic. While its extremely pleasant and windy while the sun is out, it gets pretty cold with overcast skies and rain. Luckily, I’m not visiting during the winter months which are supposed to be the worst. Nevertheless, the cool weather is an good change from the Indian summer heat, and it’s likely to be more sunny in the coming days.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Extracurricular Events&lt;/strong&gt; - There seem to be less social extra-curricular events here when compared to IIT Bombay. While it’s likely that I’m unaware of what’s going on in campus, I get the feeling that UChicago is more of an academic oriented college having strong graduate programs, with a strong focus on academia, which is both good and bad. However, this opinion is likely to change as the summer progresses.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;work-experience&quot;&gt;Work Experience&lt;/h2&gt;
+
+&lt;p&gt;While interactions with my advisors have been great so far, my progress has been on the slower side. I suppose this is because a few days went in a general setup and adjustment, and I’ve spent a lot of time attending talks and reading groups. I really wish I was interning here for longer, (perhaps 10-12 weeks), since it would give me a stronger chance to finish substantial work. I’m currently working on encoders to improve Automatic Speech Recognition systems. I hope to implement dilated CNNs in place of regular bidirectional LSTMs and compare their performance over the next few weeks. I’ve also been reading a lot of papers in speech recognition, and it’s a really vibrant field with a lot of ongoing research. In my free time this week, I completed &lt;a href=&quot;http://pgbovine.net/PhD-memoir/pguo-PhD-grind.pdf&quot;&gt;The PhD Grind&lt;/a&gt;, a really interesting Stanford PhD memoir.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This week has been unlike anything I’ve experienced so far. I hope to visit lake Michigan and a museum tomorrow, which is a holiday due to Memorial Day. I think my work will soon pace up, and hopefully I’ll have a good technical story to tell at the end of the internship. Overall I’m quite happy and really excited about the adventures which are to follow!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 May 2017 10:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/05/28/hello-uchicago.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/05/28/hello-uchicago.html</guid>
+        
+        <category>internship</category>
+        
+        <category>ttic</category>
+        
+        <category>chicago</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>ECG Analysis</title>
+        <description>&lt;p&gt;&lt;em&gt;(With inputs from &lt;a href=&quot;https://www.facebook.com/karanchadha005&quot;&gt;Karan Chadha&lt;/a&gt; and &lt;a href=&quot;https://www.facebook.com/profile.php?id=100006442563676&quot;&gt;Abhin Shah&lt;/a&gt;)&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Last semester, under the &lt;em&gt;Digital Signal Processing&lt;/em&gt; course, we worked on an interesting application project. Our goal was to analyse ECG signals using DSP techniques and identify heart attacks (more precisely, Anterior &lt;a href=&quot;https://en.wikipedia.org/wiki/Myocardial_infarction&quot;&gt;Myocardial Infractions&lt;/a&gt;). We have hosted the project on &lt;a href=&quot;https://github.com/martiansideofthemoon/ecg-analysis&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;literature-survey&quot;&gt;Literature Survey&lt;/h2&gt;
+
+&lt;h2 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h2&gt;
+&lt;p&gt;Data was collected from a standard ECG analysis database called &lt;a href=&quot;https://www.physionet.org/physiobank/database/ptbdb/&quot;&gt;Physikalisch-Technische Bundesanstalt (PTB)&lt;/a&gt;. We scraped Physionet using a python &lt;a href=&quot;https://github.com/martiansideofthemoon/ecg-analysis/blob/master/data/scrape.py&quot;&gt;script&lt;/a&gt;. Each ECG waveform is accompanied with a header file with details on the diagnosis. We extracted all &lt;em&gt;Anterior Myocardial Infarction&lt;/em&gt; cases in &lt;a href=&quot;https://github.com/martiansideofthemoon/ecg-analysis/blob/master/positive.txt&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;positive.txt&lt;/code&gt;&lt;/a&gt; and healthy cases in &lt;a href=&quot;https://github.com/martiansideofthemoon/ecg-analysis/blob/master/control.txt&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;control.txt&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;pre-processing&quot;&gt;Pre-Processing&lt;/h2&gt;
+
+&lt;h2 id=&quot;extracting-coefficients&quot;&gt;Extracting Coefficients&lt;/h2&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+</description>
+        <pubDate>Wed, 17 May 2017 10:00:55 +0530</pubDate>
+        <link>http://localhost:4000/2017/05/17/ecg-analysis.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/05/17/ecg-analysis.html</guid>
+        
+        <category>ecg</category>
+        
+        <category>dsp</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
