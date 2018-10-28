@@ -28,7 +28,7 @@ My interests include Image processing (in particular compressed sensing and spar
 
 * [Stochastic Modelling using server caches] ()
 
-* [Parallelizing Monte Carlo Simulations] ()
+* [Parallelizing Monte Carlo Simulations] ({{ site.url }}/assets/Parallel_CE_CUDA_edited.pdf)) \[[pdf]({{ site.url }}/assets/Parallel_CE_CUDA_edited.pdf)\]
 
 
 <!-- [Diversity Sampling in Machine Learning](http://github.com/martiansideofthemoon/diversity-sampling) - An implementation of [Diverse Beam Search for Neural Networks](https://arxiv.org/abs/1610.02424) in Language Modelling. Also contains the original (slightly modified code) for the interactive segmentation experiments in [Diverse M-Best Solutions in MRFs](http://ttic.uchicago.edu/~gregory/papers/MBestModes.pdf).
