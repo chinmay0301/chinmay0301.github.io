@@ -22,7 +22,7 @@ My interests include Image processing (in particular compressed sensing and spar
 
 #### **Research Projects**
 
-* Optimal bidding in Day-Ahead Power markets 
+* Optimal bidding in Day-Ahead Power markets  
 *(under guidance of [Prof. Anupama Kowli](https://www.ee.iitb.ac.in/web/people/faculty/home/anu))*  
 **IIT Bombay** *(Aug. 2018-Ongoing)*  
 
