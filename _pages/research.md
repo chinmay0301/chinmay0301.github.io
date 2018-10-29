@@ -22,7 +22,13 @@ My interests include Image processing (in particular compressed sensing and spar
 
 #### **Research Projects**
 
-* [Face Swap using Poisson Solver]() - A TensorFlow implementation for the multi-label classification experiments in [Learning Approximate Inference Networks for Structured Prediction](https://arxiv.org/abs/1803.03376). Also contains experiments on the [FIGMENT](http://cistern.cis.lmu.de/figment/) dataset and a extension to Inference Network training algorithm based on the paper [Improved Training of Wasserstein GANs](https://arxiv.org/abs/1704.00028).
+* Optimal bidding in Day-Ahead Power markets 
+*(under guidance of [Prof. Anupama Kowli](https://www.ee.iitb.ac.in/web/people/faculty/home/anu))*  
+**IIT Bombay** *(Aug. 2018-Ongoing)*  
+
+Other project descriptions are yet to be updated. Have a look at my [CV]({{ site.url }}/assets/cv_long.pdf) for an overview of my other research projects.
+
+<!-- * [Face Swap using Poisson Solver]() - A TensorFlow implementation for the multi-label classification experiments in [Learning Approximate Inference Networks for Structured Prediction](https://arxiv.org/abs/1803.03376). Also contains experiments on the [FIGMENT](http://cistern.cis.lmu.de/figment/) dataset and a extension to Inference Network training algorithm based on the paper [Improved Training of Wasserstein GANs](https://arxiv.org/abs/1704.00028).
 
 * [Astronomy NIUS]() -
 
@@ -30,7 +36,7 @@ My interests include Image processing (in particular compressed sensing and spar
 
 * [Parallelizing Monte Carlo Simulations] ({{ site.url }}/assets/Parallel_CE_CUDA_edited.pdf)) \[[pdf]({{ site.url }}/assets/Parallel_CE_CUDA_edited.pdf)\]
 
-
+ -->
 <!-- [Diversity Sampling in Machine Learning](http://github.com/martiansideofthemoon/diversity-sampling) - An implementation of [Diverse Beam Search for Neural Networks](https://arxiv.org/abs/1610.02424) in Language Modelling. Also contains the original (slightly modified code) for the interactive segmentation experiments in [Diverse M-Best Solutions in MRFs](http://ttic.uchicago.edu/~gregory/papers/MBestModes.pdf).
 
 * [Macro Actions in Reinforcement Learning]((https://github.com/martiansideofthemoon/macro-action-rl)) - A suite of five algorithms (including ideas from "[Learning to Repeat: Fine Grained Action Repetition for Deep Reinforcement Learning](https://arxiv.org/abs/1702.06054)") encouraging agents to repeat actions.
