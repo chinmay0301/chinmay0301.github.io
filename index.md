@@ -11,5 +11,6 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 
 #### Updates
 
+* Feb. 2019: Submitted a paper on "Compressive Phase Retrieval under Poisson noise" with P. Khirwadkar and A. Rajwade  to **ICIP 2019** 
 * Sep. 2018: C. Talegaonkar and A. Rajwade* "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
 * Jul. 2018: Successfully completed an Internship at NVidia, Bangalore
