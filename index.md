@@ -9,7 +9,8 @@ I maintain a list of my publications and research projects implementations under
 
 I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
 
-#### Updates
+#### Updates   
+* May. 2019: C. Talegaonkar P. Khirwadkar and A. Rajwade* "Compressive sensing under Poisson Noise"*, accepted to **ICIP 2019** 
 * April. 2019: [Slides](https://docs.google.com/presentation/d/1ZkK0VZ_KMxfd1MU3mfOo1kSHF0HeStTC7sv9n4FGRlU/edit?usp=sharing) for my talk "Imaging the Invisible", on the image of supermassive blackhole obtained by the EHT project
 * Feb. 2019: Submitted a paper on "Compressive Phase Retrieval under Poisson noise" with P. Khirwadkar and A. Rajwade  to **ICIP 2019** 
 * Sep. 2018: C. Talegaonkar and A. Rajwade* "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
