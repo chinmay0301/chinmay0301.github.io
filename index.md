@@ -3,7 +3,7 @@ layout: page
 ---
 {% include JB/setup %}
 
-My name is Chinmay Talegaonkar, and I am a final year undergraudate in Dept. of Electrical Engineering at [IIT Bombay](https://www.ee.iitb.ac.in/web). 
+My name is Chinmay Talegaonkar, and I am a first year graduate student in the department of ECE at UCLA. Currently I am a part of the [Visual Machines Group](https://visual.ee.ucla.edu/) at UCLA, exploring the field of physics based learning.  
 
 I maintain a list of my publications and research projects implementations under the [Research]({{ site.url }}/research) tab. To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv).
 
