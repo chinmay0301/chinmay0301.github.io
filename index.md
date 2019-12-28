@@ -7,7 +7,7 @@ My name is Chinmay Talegaonkar, and I am a first year graduate student in the de
 
 I maintain a list of my publications and research projects implementations under the [Research]({{ site.url }}/research) tab. To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv).
 
-I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
+I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)![^1].
 
 #### Updates
 * Jan. 2020: TA for UCLA CS 35 L (Software Construction Lab)
@@ -17,3 +17,8 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 * Feb. 2019: Submitted a paper on "Compressive Phase Retrieval under Poisson noise" with P. Khirwadkar and A. Rajwade  to **ICIP 2019** 
 * Sep. 2018: C. Talegaonkar and A. Rajwade* "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
 * Jul. 2018: Successfully completed an Internship at NVidia, Bangalore
+
+[^1]: Thanks to [Kalpesh Krishna](http://martiansideofthemoon.github.io/) for the template inspiration 
+
+
+
