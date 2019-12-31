@@ -13,6 +13,19 @@ This lab, as the title suggests will help you master the fundamentals required f
 
 Getting started with software engineering might feel a bit dry to some people, since you will mostly be looking at documentations, and then implement/use a piece of code or software. But think of it as learning the english alphabet. The letters independently are of no use mostly. But when used together (with punctuations of course), enable me to write this blog for you! Look at this course with a similar perspective, that the aim of this course is to get you well versed with the alphabet for software engineering. Almost all the software you use everyday, has these components at the core of it. Hence, mastering the content of this course would be a crucial step in pursuing your careers. 
 
-#### Week 1:
+### Course Logistics: 
 
-The focus of week 1 is to give you a 
+* Course webpage: [TBD](https://web.cs.ucla.edu/classes/fall19/cs35L/) Check this out for assignments, syllabus and other resources.
+* Lab Timings: Tue (2:00 PM - 4:00 PM)
+* Lab Venue: TBD
+* Office Hours: TBD (mostly Friday sometime)                                         
+
+#### **Week 1**:
+
+The focus of week 1 is to give you a basic introduction to linux, the bash shell and Emacs. PFA some useful references for the same. I will keep updating the references as and when I find something new. 
+
+
+
+
+
+
