@@ -18,11 +18,13 @@ Getting started with software engineering might feel a bit dry to some people, s
 * Course webpage: [TBD](https://web.cs.ucla.edu/classes/fall19/cs35L/) Check this out for assignments, syllabus and other resources.
 * Lab Timings: Tue (2:00 PM - 4:00 PM)
 * Lab Venue: TBD
-* Office Hours: TBD (mostly Friday sometime)                                         
+* Office Hours: TBD (mostly Friday sometime)
+* I will keep posting the resources I use on the [Resource Doc](https://docs.google.com/document/d/17EL1mngL9oJqdsLlAkdAKxvNWQrm4TWvjQ_PIAlftPY/edit). Once we finalize the resources for most assignments, I will add the resources to the webpage. 
+
 
 #### **Week 1**:
 
-The focus of week 1 is to give you a basic introduction to linux, the bash shell and Emacs. PFA some useful references for the same. I will keep updating the references as and when I find something new. 
+The focus of week 1 is to give you a basic introduction to linux, the bash shell and Emacs. 
 
 
 

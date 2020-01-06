@@ -4,5 +4,5 @@ title: CV
 permalink: /cv/
 ---
 
-[Long CV]({{ site.url }}/assets/cv_long.pdf) (3 pages)  
-[Short CV]({{ site.url }}/assets/One_page_CV.pdf) (1 page)  
+[Long CV]({{ site.url }}/assets/cv_long.pdf) (3 pages - To be updated)  
+[Short CV]({{ site.url }}/assets/Resume_Chinmay.pdf) (1 page)  
