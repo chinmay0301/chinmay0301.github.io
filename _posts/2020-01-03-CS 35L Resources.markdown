@@ -29,6 +29,10 @@ The focus of week 1 is to give you a basic introduction to linux, the bash shell
 #### Lab 1 queries:
 * **Path Variable** : PATH is an environment variable on Unix-like operating systems, DOS, OS/2, and Microsoft Windows, specifying a set of directories where executable programs are located. When you look for an exectuable (For ex gcc) , it will be first searched in the current directory, and then the left most directory in the PATH variable. **After you pre-pend the directory, restart the shell for the command to take effect**
 
+* **Recording Key Strokes in Emacs** : You might want to look into keyboard macros, but I found a simple way to do it. Write whatever text you want, then use the comman C-h l. You can then copy your keystrokes to another file/buffer. 
+
+
+
 
 
 
