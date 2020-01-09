@@ -26,6 +26,10 @@ Getting started with software engineering might feel a bit dry to some people, s
 
 The focus of week 1 is to give you a basic introduction to linux, the bash shell and Emacs. 
 
+#### Lab 1 queries:
+* **Path Variable** : PATH is an environment variable on Unix-like operating systems, DOS, OS/2, and Microsoft Windows, specifying a set of directories where executable programs are located. When you look for an exectuable (For ex gcc) , it will be first searched in the current directory, and then the left most directory in the PATH variable. 
+
+
 
 
 
