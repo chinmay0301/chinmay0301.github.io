@@ -35,6 +35,12 @@ The focus of week 1 is to give you a basic introduction to linux, the bash shell
 
 The focus of week 2 is to give you a basic introduction to regex and shell scripting, and applications of the same.
 
+### Lab 2 Hints:
+
+* Use the sed, tr and grep commands effectively, together with the pipeline operator, they will help you write the buildwords script. [Sed Tutorial](https://www.tutorialspoint.com/sed/sed_workflow.htm). Refer to the Sed- Regular Expressions section for help. 
+
+* For any operation you want to do, try writing it as a regex filter, then see which of the commands, tr, sed or grep can be used to achieve the final output. Think of buildwords as a series of operations
+
 
 
 
