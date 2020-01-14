@@ -31,6 +31,11 @@ The focus of week 1 is to give you a basic introduction to linux, the bash shell
 
 * **Recording Key Strokes in Emacs** : You might want to look into keyboard macros, but I found a simple way to do it. Write whatever text you want, then use the comman C-h l. You can then copy your keystrokes to another file/buffer. 
 
+#### **Week 2**:
+
+The focus of week 2 is to give you a basic introduction to regex and shell scripting, and applications of the same.
+
+
 
 
 
