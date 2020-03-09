@@ -5,7 +5,7 @@ layout: page
 
 My name is Chinmay Talegaonkar, and I am a first year graduate student in the department of ECE at UCLA. Currently I am a part of the [Visual Machines Group](https://visual.ee.ucla.edu/) at UCLA, exploring the field of physics based learning.  
 
-I maintain a list of my publications and research projects implementations under the [Research]({{ site.url }}/research) tab. To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv).
+ To get an insight on my professional life so far, you can have a look at my [CV]({{ site.url }}/cv) and [google scholar](https://scholar.google.com/citations?user=or4dcwQAAAAJ&hl=en).
 
 I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
 
