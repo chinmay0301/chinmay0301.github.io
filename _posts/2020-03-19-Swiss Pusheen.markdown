@@ -5,7 +5,10 @@ date:   2020-03-19 23:55:55 -0800
 tags: blog
 ---
 
-### Swiss Pusheen
+*COVID-19 Quarantine brought out the raconteur inside me. SOmeone very close to me wanted to hear a bedtime story, so I came up with this on spot. Unexpectedly it turned out be a really cute story! For the uninitated, this is Pusheen (the cutest, fattest and warmest cat in the world) saying hi to you.*
+
+![Hello Pusheen](https://chinmay0301.github.io/assets/Pusheen.jpg) 
+
 
 Once upon a time, there was a big chubby Pusheen. That Pusheen lived in Switzerland. Switzerland is a cold country, but this Pusheen had a nice Blue hoodie to keep it warm. Marked by his Blue hoodie, they called him Blue Pusheen. One fine afternoon, Blue Pusheen was strutting about the streets of Zurich in merriment. After a while, it started feeling hungry. Blue Pusheen looked around, and saw an antique chocolate shop, The Coco Pusheen Lindt Shop.  
 
