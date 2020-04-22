@@ -10,7 +10,10 @@ My name is Chinmay Talegaonkar, and I am a first year graduate student in the de
 I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
 
 #### Updates
-* Jan. 2020: TA for UCLA CS 35 L (Software Construction Lab)
+* April. 2020 [Visual Physics](https://arxiv.org/abs/1911.11893) accepted as a poster  to [**ICCP 2020**](https://iccp2020.engr.wustl.edu/program.html)!      
+* April. 2020: TA for Reinforcement Learning at UCLA (ECE 239 AS)    
+* Feb. 2020: Accepted an internship offer at NVIDIA for summer 2020    
+* Jan. 2020: TA for UCLA CS 35 L (Software Construction Lab)     
 * June. 2019: Selected as a participant to attend the South East Asia Machine Learning Summer School (SEAML) in Indonesia from July 8-12 
 * May. 2019: C. Talegaonkar P. Khirwadkar and A. Rajwade* "Compressive sensing under Poisson Noise"*, accepted to **ICIP 2019** 
 * April. 2019: [Slides](https://docs.google.com/presentation/d/1ZkK0VZ_KMxfd1MU3mfOo1kSHF0HeStTC7sv9n4FGRlU/edit?usp=sharing) for my talk "Imaging the Invisible", on the image of supermassive blackhole obtained by the EHT project
