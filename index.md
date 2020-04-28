@@ -10,6 +10,7 @@ My name is Chinmay Talegaonkar, and I am a first year graduate student in the de
 I [blog]({{ site.url }}/archive) every now and then compiling my personal experiences. Feel free to read a bit [more about me]({{ site.url }}/about)!
 
 #### Updates
+* April. 2020: Awared the [GuruKrupa fellowship](https://newsroom.ucla.edu/faculty-bulletin-board/ucla-engineering-alumnus-adds--500-000-to-fellowship) for Graduate Students at UCLA     
 * April. 2020: [Visual Physics](https://arxiv.org/abs/1911.11893) accepted as a poster  to **ICCP 2020**!. [Program Link](https://iccp2020.engr.wustl.edu/program.html)      
 * April. 2020: TA for Reinforcement Learning at UCLA (ECE 239 AS)    
 * Feb. 2020: Accepted an internship offer at NVIDIA for summer 2020    
