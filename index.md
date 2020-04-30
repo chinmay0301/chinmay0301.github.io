@@ -12,7 +12,7 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 #### Updates
 
 
-<div style="height:250px;overflow:auto;">
+<!-- <div style="height:250px;overflow:auto;"> -->
 * April. 2020: Awared the prestigious [GuruKrupa Fellowship](https://newsroom.ucla.edu/faculty-bulletin-board/ucla-engineering-alumnus-adds--500-000-to-fellowship) for Graduate Students at UCLA     
 * April. 2020: [Visual Physics](https://arxiv.org/abs/1911.11893) accepted as a poster  to **ICCP 2020**!. [Program Link](https://iccp2020.engr.wustl.edu/program.html)      
 * April. 2020: TA for Reinforcement Learning at UCLA (ECE 239 AS)    
@@ -24,6 +24,6 @@ I [blog]({{ site.url }}/archive) every now and then compiling my personal experi
 * Feb. 2019: Submitted a paper on "Compressive Phase Retrieval under Poisson noise" with P. Khirwadkar and A. Rajwade  to **ICIP 2019** 
 * Sep. 2018: C. Talegaonkar and A. Rajwade* "Performance Bounds for Tractable Poisson Denoisers with Principled Parameter Tuning"*, accepted to **GlobalSIP 2018** for oral presentation
 * Jul. 2018: Successfully completed an Internship at NVidia, Bangalore
-</div>
+<!-- </div> -->
 
 
