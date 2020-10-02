@@ -4,4 +4,4 @@ title: CV
 permalink: /cv/
 ---
 
-[CV]({{ site.url }}/assets/Resume_Chinmay.pdf) (1 page)  
+[CV]({{ site.url }}/assets/CV_Chinmay.pdf) (1 page)  
