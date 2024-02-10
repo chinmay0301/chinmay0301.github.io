@@ -3,6 +3,8 @@ layout: page
 title: Research
 permalink: /research/
 ---
+
+<!-- 
 My interests include Image processing (in particular compressed sensing and sparse regressions), Re-inforcement learning, Machine Learning and optimization. Along with image processing, I am also interested in CUDA Programming and optimization.
 
 #### **Papers**
@@ -20,13 +22,6 @@ My interests include Image processing (in particular compressed sensing and spar
 <!-- \[[pdf]({{ site.url }}/assets/btp-report.pdf)\]
  -->
 
-#### **Research Projects**
-
-* Optimal bidding in Day-Ahead Power markets  
-*(under guidance of [Prof. Anupama Kowli](https://www.ee.iitb.ac.in/web/people/faculty/home/anu))*  
-**IIT Bombay** *(Aug. 2018-Ongoing)*  
-
-Other project descriptions are yet to be updated. Have a look at my [CV]({{ site.url }}/assets/cv_long.pdf) for an overview of my other research projects.
 
 <!-- * [Face Swap using Poisson Solver]() - A TensorFlow implementation for the multi-label classification experiments in [Learning Approximate Inference Networks for Structured Prediction](https://arxiv.org/abs/1803.03376). Also contains experiments on the [FIGMENT](http://cistern.cis.lmu.de/figment/) dataset and a extension to Inference Network training algorithm based on the paper [Improved Training of Wasserstein GANs](https://arxiv.org/abs/1704.00028).
 
