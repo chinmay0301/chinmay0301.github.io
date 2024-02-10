@@ -8,8 +8,8 @@
 # Site settings
 title: Chinmay Talegaonkar
 full_name: Chinmay Talegaonkar
-email: chinmay0301@gmail.com
-email2: chinmay0301@iitb.ac.in
+email: ctalegaonkar@ucsd.edu
+email2: chinmay0301@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://chinmay0301.github.io" # the base hostname & protocol for your site
