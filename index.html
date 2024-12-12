@@ -60,14 +60,42 @@
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <h2>Research</h2>
                 <p>
-                  I am broadly interested in 3D Vision, Graphics, and Imaging. My current research focuses on 3D scene representations
-                  (NeRFs, 3D Gaussian Splatting, etc.), Diffusion Models and their applications in Computational Imaging inverse problems.
-                  I also work on 3D Vision/Perception and 6-DoF Pose Estimation for ocean floor inspection. 
+                  I am broadly interested in 3D vision, graphics, and computational imaging. My current research focuses on 3D scene representations
+                  (NeRFs, 3D Gaussian splatting, etc.), diffusion models and their applications in computational imaging inverse problems.
+                  I also work on 3D vision/perception and 6-DoF pose estimation for ocean floor inspection. 
                 </p>
               </td>
             </tr>
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr onmouseout="vol3dgs_stop()" onmouseover="vol3dgs_start()">
+              <td style="padding:20px;width:25%;vertical-align:middle">
+                <div class="one">
+                  <div class="two" id='vol3dgs_image'><img src='images/room_comparison.gif' width="100%"></div>
+                  <img src='images/room_comparison_ours.png' width="100%">
+                </div>
+                <script type="text/javascript">
+                  function vol3dgs_start() {
+                    document.getElementById('vol3dgs_image').style.opacity = "1";
+                  }
+
+                  function vol3dgs_stop() {
+                    document.getElementById('vol3dgs_image').style.opacity = "0";
+                  }
+                  vol3dgs_stop()
+                </script>
+              </td>
+              <td style="width: 85%; vertical-align: middle; padding: 20px;">
+                <a href="https://arxiv.org/abs/2410.01061">
+                    <span class="papertitle">Volumetrically Consistent 3D Gaussian Rasterization</span>
+                </a>
+                <br>
+                <strong>Chinmay Talegaonkar</strong>, Yash Belhe, Ravi Ramamoorthi, Nicholas Antipa
+                <br>
+                <em>arXiv Preprint</em>
+                <br>
+            </td>
+            
             <tr onmouseout="oceans2024_stop()" onmouseover="oceans2024_start()">
               <td style="padding:20px;width:25%;vertical-align:middle">
                 <div class="one">
