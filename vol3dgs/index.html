@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Gaussian Splatting, Rasterization, Tomography">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Volumetrically Consistent 3D Gaussian Rasterization</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+  <!-- <script src="./static/js/index.js"></script> -->
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Volumetrically Consistent 3D Gaussian Rasterization</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chinmay0301.github.io">Chinmay Talegaonkar</a>,</span>
+            <span class="author-block">
+              <a href="https://yashbelhe.github.io/">Yash Belhe</a>,</span>
+            <span class="author-block">
+              <a href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.nickantipa.com/">Nicholas Antipa</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of California San Diego</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2412.03378"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2412.03378"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/chinmay0301ucsd/Vol3DGS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          Recently, 3D Gaussian Splatting (3DGS) has enabled photorealistic view synthesis at high inference speeds.
+          However, its splatting-based rendering model makes several approximations to the rendering equation, reducing physical accuracy.
+          We show that the core approximations in splatting are unnecessary, even within a rasterizer;
+          we instead volumetrically integrate 3D Gaussians directly to compute the transmittance across them analytically.
+          We use this analytic transmittance to derive more physically-accurate alpha values than 3DGS, which can directly be used within their framework.
+          The result is a method that more closely follows the volume rendering equation (similar to ray-tracing) while enjoying the speed benefits of rasterization.
+          Our method represents opaque surfaces with higher accuracy and fewer points than 3DGS.
+          This enables it to outperform 3DGS for view synthesis (measured in SSIM and LPIPS).
+          Being volumetrically consistent also enables our method to work out of the box for tomography. We match the state-of-the-art 3DGS-based tomography method with fewer points.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <!-- Method Overview -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Intuition behind our rasterizer</h2>
+        <div class="content has-text-justified">
+        The core idea of our work, is that instead of splatting the 3D Gaussians to 2D, we analytically compute the transmittance of a 3D Gaussian along the camera ray, and use that to compute alpha values for blending Gaussians in screen space. (Left)<br>
+        Our approach alleviates many of the approximations in the splatting process, making the 3DGS forward rendering process more consistent with the volume rendering equation. This can be easily incorporated into a rasterizer, thus retaining the training and inference speed of 3DGS. 
+        Visually, our approach allows rendering opaque surfaces better than a splatted 3D Gaussian, as shown below for a 2D example (Right). See figure 3 in the paper for more details
+          <div class="columns is-centered">
+            <div class="column">
+              <img src="static/images/theory_1.png" alt="Method overview image" class="method-image">
+              <p>
+                <!-- Text can be added here -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Method Overview -->
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered">Interactive 1D Density Plot</h2>
+    <div class="content has-text-centered"> We show 1D cross sections of a single 3D Gaussian placed \(z_0\) distance from the camera along the camera ray. Increasing the scale \(s_z\) along the camera ray and density \(k\), both increase the flat region where the opacity \(\alpha=1\). This allows our method represent opaque surfaces better than 3DGS, which always has a Gaussian-like opacity fall off.
+
+
+    <div id="calculator" style="width: 800px; height: 400px; margin: 0 auto;"></div>
+  </div>
+</section>
+<script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script>
+  const elt = document.getElementById('calculator');
+  const calculator = Desmos.GraphingCalculator(elt, {
+    expressions: true,
+    settingsMenu: false,
+    keypad: false
+  });
+
+  calculator.setMathBounds({
+    left: -50,
+    right: 50,
+    bottom: 0,
+    top: 1.2
+  });
+
+  calculator.setExpressions([
+    // Sliders
+    { id: 'Scale x', latex: 's_x=2.55', sliderBounds: { min: 0.01, max: 5 } },
+    { id: 'Scale z', latex: 's_z=0.3', sliderBounds: { min: 0.01, max: 5 } },
+    { id: 'z0', latex: 'z_0=1.6', sliderBounds: { min: 0.1, max: 5 } },
+    { id: 'Density',  latex: 'k=50', sliderBounds: { min: 0.1, max: 50 } },
+
+
+     // Direction components d = [x, 0, 1]/sqrt(x^2 + 1)
+     { id: 'd_x', latex: 'd_x(x)=\\frac{x}{\\sqrt{x^2 + 1}}', hidden: true },
+      { id: 'd_z', latex: 'd_z(x)=\\frac{1}{\\sqrt{x^2 + 1}}', hidden: true },
+
+      // gamma(x)
+      { id: 'gamma', latex: '\\gamma(x)=\\frac{z_0 \\cdot d_z(x)/s_z}{d_x(x)^2/s_x + d_z(x)^2/s_z}', hidden: true },
+
+      // g = gamma * d
+      { id: 'gx', latex: '\\gamma_x(x)=\\gamma(x) \\cdot d_x(x)', hidden: true },
+      { id: 'gz', latex: '\\gamma_z(x)=\\gamma(x) \\cdot d_z(x)', hidden: true },
+
+      // delta = g - mu
+      { id: 'ddx', latex: 'e_x(x)=\\gamma_x(x)', hidden: true },
+      { id: 'ddz', latex: 'e_z(x)=\\gamma_z(x) - z_0', hidden: true },
+
+      // Gaussian kernel
+      { id: 'G', latex: 'G(x)=\\exp\\left(-\\frac{1}{2} \\left( \\frac{e_x(x)^2}{s_x} + \\frac{e_z(x)^2}{s_z} \\right) \\right)', hidden: true },
+
+      // sigma_d based on d = [x, 0, 1]
+      { id: 'sigd', latex: '\\sigma_d(x)=\\frac{1}{\\sqrt{\\frac{x^2}{s_x} + \\frac{1}{s_z}}}', hidden: true },
+      {
+        id: 'y_expr',
+        latex: 'y(x)=1 - \\exp\\left(-k \\sqrt{2\\pi} \\cdot \\sigma_d(x) \\cdot G(x)\\right)',
+        color: Desmos.Colors.BLUE
+      },
+
+      // y(0) value for Gaussian scaling
+      {
+        id: 'o_val',
+        latex: 'o = 1 - \\exp\\left( -k \\sqrt{2\\pi} \\sqrt{s_z} \\right)',
+        hidden: true
+      },
+
+      // Projected 1D Gaussian using J Σ Jᵀ
+      {
+        id: 'y2_expr',
+        latex: 'y_2(x) = o \\cdot \\exp\\left(-\\frac{x^2 z_0^2}{2 s_x} \\right)',
+        color: Desmos.Colors.RED
+      },
+      
+        {
+        id: 'label_ours',
+        latex: 'A = (20, 0.7)',
+        label: 'Ours',
+        showLabel: true,
+        color: Desmos.Colors.BLUE
+      },
+
+      {
+        id: 'label_3dgs',
+        latex: 'B = (20, 1)',
+        label: '3DGS',
+        showLabel: true,
+        color: Desmos.Colors.RED
+}
+    ]);
+</script>
+<section class="section">
+  <div class="container is-max-widescreen">
+
+  <!-- <div class="container is-max-desktop">
+    <div class="columns is-centered"> -->
+
+ <h2 class="title is-3 has-text-centered">Visual Comparison</h2>
+    <div class="content has-text-centered"> Compared to 3DGS, our method improves rendering opaque surfaces and sharp details like edges.</div> 
+
+    <!-- <div class="column"> -->
+      <div class="slider-row">
+      
+        <div id="one" class="bal-container">
+          <div class="bal-after">
+            <img src="static/comparison_images/counter/ours.png">
+            <div class="bal-afterPosition afterLabel">Ours</div>
+          </div>
+    
+          <div class="bal-before">
+            <div class="bal-before-inset">
+              <img src="static/comparison_images/counter/3dgs.png">
+              <div class="bal-beforePosition beforeLabel">3DGS</div>
+            </div>
+          </div>
+          <div class="bal-handle">
+            <span class=" handle-left-arrow"></span>
+            <span class="handle-right-arrow"></span>
+          </div>
+        </div>
+          
+        <div id="two" class="bal-container">
+          <div class="bal-after">
+            <img src="static/comparison_images/flowers/ours.png">
+            <div class="bal-afterPosition afterLabel">Ours</div>
+          </div>
+    
+          <div class="bal-before">
+            <div class="bal-before-inset">
+              <img src="static/comparison_images/flowers/3dgs.png">
+              <div class="bal-beforePosition beforeLabel">3DGS</div>
+            </div>
+          </div>
+          <div class="bal-handle">
+            <span class=" handle-left-arrow"></span>
+            <span class="handle-right-arrow"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+      
+        <div id="three" class="bal-container">
+          <div class="bal-after">
+            <img src="static/comparison_images/room/ours.png">
+            <div class="bal-afterPosition afterLabel">Ours</div>
+          </div>
+    
+          <div class="bal-before">
+            <div class="bal-before-inset">
+              <img src="static/comparison_images/room/3dgs.png">
+              <div class="bal-beforePosition beforeLabel">3DGS</div>
+            </div>
+          </div>
+          <div class="bal-handle">
+            <span class=" handle-left-arrow"></span>
+            <span class="handle-right-arrow"></span>
+          </div>
+        </div>
+          
+        <div id="four" class="bal-container">
+          <div class="bal-after">
+            <img src="static/comparison_images/train/ours.png">
+            <div class="bal-afterPosition afterLabel">Ours</div>
+          </div>
+    
+          <div class="bal-before">
+            <div class="bal-before-inset">
+              <img src="static/comparison_images/train/3dgs.png">
+              <div class="bal-beforePosition beforeLabel">3DGS</div>
+            </div>
+          </div>
+          <div class="bal-handle">
+            <span class=" handle-left-arrow"></span>
+            <span class="handle-right-arrow"></span>
+          </div>
+        </div>
+      </div>
+    <!-- <div id="two" class="bal-container">
+      <div class="bal-after">
+        <img src="static/comparison_images/flowers/3dgs.png" class="slider-img">
+        <div class="bal-afterPosition afterLabel">3DGS</div>
+      </div>
+
+      <div class="bal-before" >
+        <div class="bal-before-inset" >
+          <img src="static/comparison_images/flowers/ours.png" class="slider-img">
+          <div class="bal-beforePosition beforeLabel">Ours</div>
+        </div>
+
+        <div class="bal-handle">
+          <span class=" handle-left-arrow"></span>
+          <span class="handle-right-arrow"></span>
+        </div>
+    </div>
+  </div>
+
+  <div id="three" class="bal-container">
+    <div class="bal-after">
+      <img src="static/comparison_images/room/3dgs.png" class="slider-img">
+      <div class="bal-afterPosition afterLabel">3DGS</div>
+    </div>
+
+    <div class="bal-before">
+      <div class="bal-before-inset">
+        <img src="static/comparison_images/room/ours.png" class="slider-img">
+        <div class="bal-beforePosition beforeLabel">Ours</div>
+      </div>
+
+      <div class="bal-handle">
+        <span class=" handle-left-arrow"></span>
+        <span class="handle-right-arrow"></span>
+      </div>
+  </div>
+  <div id="four" class="bal-container">
+    <div class="bal-after">
+      <img src="static/comparison_images/train/3dgs.png" class="slider-img">
+      <div class="bal-afterPosition afterLabel">3DGS</div>
+    </div>
+
+    <div class="bal-before">
+      <div class="bal-before-inset">
+        <img src="static/comparison_images/train/ours.png" class="slider-img">
+        <div class="bal-beforePosition beforeLabel">Ours</div>
+      </div>
+
+      <div class="bal-handle">
+        <span class=" handle-left-arrow"></span>
+        <span class="handle-right-arrow"></span>
+      </div> 
+</div> -->
+
+<script src="./static/js/script.js"></script>
+<script>
+  new BeforeAfter({
+      id: '#one'
+  });
+  new BeforeAfter({
+      id: '#two'
+  });
+  new BeforeAfter({
+      id: '#three'
+  });
+  new BeforeAfter({
+      id: '#four'
+  });
+</script>
+
+<div class="columns is-centered">
+  <div class="column is-full-width">
+    <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            A lot of concurrent work has been done in this space, exploring different 3D scene primitives, as well as studying the effect of approximations in 3DGS in simple settings.
+          </p>
+          <p>
+            <a href="https://arxiv.org/pdf/2502.19318">Does 3D Gaussian Splatting Need Accurate Volumetric Rendering?</a> studies the ray-marching 3D Gaussians in comparison with 3DGS in simple settings without densification.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2410.01804">EVER: Exact Volumetric Ellipsoid Rendering for Real-time View Synthesis</a> uses constant density ellipsoids as primitives and ray-marches through them for rendering.
+          </p>
+          <!-- <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p> -->
+          <p>
+            Many more works might have surfaced by the time you read this.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{talegaonkar2025vol3dgs,
+  author    = {Chinmay Talegaonkar and Yash Belhe and Ravi Ramamoorthi and Nicholas Antipa},
+  title     = {Volumetrically Consistent 3D Gaussian Rasterization},
+  journal   = {CVPR},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2412.03378">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/chinmay0301ucsd" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies</a> website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
