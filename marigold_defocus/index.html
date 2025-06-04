@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Repurposing Marigold for Zero-Shot Metric Depth
+Estimation via Defocus Blur Cues">
+  <meta name="keywords" content="metric depth, defocus, marigold, blur">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repurposing Marigold for Zero-Shot Metric Depth
+Estimation via Defocus Blur Cues</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Repurposing Marigold for Zero-Shot Metric Depth Estimation via Defocus Blur Cues</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://chinmay0301.github.io/">Chinmay Talegaonkar</a><sup></sup>,</span>
+            <span class="author-block">
+              <a href="https://gsnikhil.github.io/">Nikhil Gandudi Suresh</a><sup></sup>,</span>
+              <!-- TODO: Add author links -->
+            <span class="author-block">
+              <a href="">Zachary Novack</a><sup></sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Yash Belhe</a><sup></sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Priyanka Nagasamudra</a><sup></sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.nickantipa.com/">Nicholas Antipa</a><sup></sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup></sup>University of California, San Diego</span>
+          </div>
+
+          <!-- TODO: Fix all these links -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2505.17358"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2505.17358"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/drive/folders/1EKlT9LLfHVa8dpB2oEFkOUCXVrEuYA5P?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent monocular metric depth estimation (MMDE) methods have made notable progress towards zero-shot generalization. However, they still exhibit a significant performance drop on out-of-distribution datasets. We address this limitation by injecting defocus blur cues at inference time into Marigold, a pre-trained diffusion model for zero-shot, scale-invariant monocular depth estimation (MDE). Our method effectively turns Marigold into a metric depth predictor in a training-free manner.
+          </p>
+          <p>
+            To incorporate defocus cues, we capture two images with a small and a large aperture from the same viewpoint. To recover metric depth, we then optimize the metric depth scaling parameters and the noise latents of Marigold at inference time using gradients from a loss function based on the defocus-blur image formation model. We compare our method against existing state-of-the-art zero-shot MMDE methods on a self-collected real dataset, showing quantitative and qualitative improvements.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/images/depth_result_finalv2.jpg"
+                type="video/mp4">
+      </video> -->
+      
+      
+      <img src="./static/images/synthetic_figure_v1.jpg" alt="Hero Image">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Correcting Texture-Depth Coupling: Given an all-in-focus (a) and defocused (b) image of textured, fronto-parallel planes with constant ground truth depth, our method accurately recovers depth maps (c) with low RMSE. Unlike competing approaches, our approach resolves texture-induced errors in the Marigold initialization and recovers both the correct relative depth and metric scale. </span>
+      </h2>
+      
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Paper at a Glance. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Paper at a Glance</h2>
+        <div class="content has-text-justified">
+          <img src="./static/images/pipeline_figure_v2.jpg" alt="Pipeline Figure">
+            <p>
+            We capture two images of a scene from the same viewpoint using a camera focused at a fixed distance: a sharp, all-in-focus image (using a high F-stop number) and a defocused image (using a lower F-stop number to introduce blur). Given the sharp image and an initial learnable noise vector representing depth, the Marigold framework estimates a relative depth map. Importantly, Marigold itself is a fixed, training-free framework—its architecture and operations do not change during optimization.
+            </p>
+            <p>
+            The estimated relative depth is then converted to metric depth via an affine transformation with learnable parameters. Using the sharp image, the estimated metric depth, and known camera parameters, we synthesize a defocused image using a differentiable forward model of defocus blur.
+            </p>
+            <p>
+          Training is guided by minimizing the L2 loss between the synthesized defocused image and the actual captured defocused image. This loss is backpropagated to update the learnable noise vector and affine transformation parameters, enabling the recovery of scene depth without training the Marigold model itself.
+            </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper at a Glance. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <img src="./static/images/depth_result_finalv2.jpg" alt="Hero Image">
+      <p class="subtitle has-text-centered">
+        <span class="dnerf">Our method consistently estimates accurate metric depth across all the scenes </span>
+      </p>
+       <!-- Table -->
+        <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>RMSE ↓</th>
+        <th>REL ↓</th>
+        <th>log10 ↓</th>
+        <th>δ₁ ↑</th>
+        <th>δ₂ ↑</th>
+        <th>δ₃ ↑</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>MLPro</td>
+        <td>0.468</td>
+        <td>0.246</td>
+        <td>0.105</td>
+        <td>0.597</td>
+        <td>0.821</td>
+        <td>0.990</td>
+      </tr>
+      <tr>
+        <td>UniDepth</td>
+        <td>0.644</td>
+        <td>0.376</td>
+        <td>0.157</td>
+        <td>0.259</td>
+        <td>0.684</td>
+        <td>0.954</td>
+      </tr>
+      <tr>
+        <td>Metric3D</td>
+        <td>0.459</td>
+        <td>0.295</td>
+        <td>0.106</td>
+        <td>0.650</td>
+        <td>0.825</td>
+        <td>0.895</td>
+      </tr>
+      <tr>
+        <td>Ours - Gaussian</td>
+        <td>0.528</td>
+        <td>0.279</td>
+        <td>0.142</td>
+        <td>0.422</td>
+        <td>0.695</td>
+        <td>0.928</td>
+      </tr>
+      <tr>
+        <td class="bold">Ours - Disc</td>
+        <td class="bold">0.273</td>
+        <td class="bold">0.125</td>
+        <td class="bold">0.052</td>
+        <td class="bold">0.879</td>
+        <td class="bold">0.975</td>
+        <td class="bold">0.991</td>
+      </tr>
+    </tbody>
+    <caption><strong>Table 1:</strong> Our method with the Disc PSF outperforms all MMDE baselines averaged over all scenes in our dataset. The disc PSF, being more consistent with the real camera PSF, also outperforms the Gaussian PSF.</caption>
+  </table>
+        <!--/ Table -->
+        </div>
+      </div>
+    </div>
+    <!--/ Results -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Dataset</h2>
+        <div class="content has-text-justified">
+        <p>
+          The dataset comprises seven diverse real-world indoor scenes captured at multiple defocus blur levels. RGB images were acquired using a Canon EOS 5D Mark II with a 21MP sensor (5616 × 3744 resolution, 6.41 μm pixel pitch) and an RGGB Bayer pattern. A 50mm Canon lens was used, with F-stop settings ranging from f/1.4 to f/22, and the focus distance fixed at 80 cm.
+
+          Ground truth depth was obtained using an Intel RealSense D435 stereo depth camera, which offers less than 2% depth error at 2 meters. To reduce noise such as flying pixels, each depth map is averaged over 60 frames. The dataset can be found at this <a href="https://drive.google.com/drive/folders/1EKlT9LLfHVa8dpB2oEFkOUCXVrEuYA5P?usp=sharing">link</a>. Please see the Readme in the dataset as well.
+        </p>
+
+       
+        </div>
+      </div>
+    </div>
+    <!--/ Results -->
+  </div>
+</section>
+
+
+
+<!-- TODO: Check if the below details are correct -->
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2> 
+    <pre><code>@article{t2025marigold,
+  author    = {},
+  title     = {Repurposing Marigold for Zero-Shot Metric Depth Estimation via Defocus Blur Cues},
+  journal   = {},
+  year      = {},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <!-- TODO: fix paper link -->
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <!-- TODO: add code link -->
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies</a> website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
